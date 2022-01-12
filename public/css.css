@@ -1,0 +1,204 @@
+/* BACKGROUND BODY */
+
+body {
+/*background-image: url('files/background.jpg');*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+/* KARTY */
+@media screen and (min-width: 1px) {
+    .card{
+        width: 29rem;
+    }
+}
+
+@media screen and (min-width: 582px) {
+    .card{
+        width: 16.5rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .card{
+        width: 14rem;
+    }
+
+    .hlavnyObsahTvorcu, .hlavnyObsahUzivatela {
+        margin-left: 3rem;
+        margin-right: 0.25rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .card{
+        width: 19rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .card{
+        width: 17rem;
+    }
+
+    .hlavnyObsahFilmu {
+        margin-left: 3rem;
+        margin-right: 0.25rem;
+        border-radius: 0.25rem;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .card{
+        width: 19.5rem;
+    }
+}
+
+.card{
+    margin: 0.2rem;
+}
+
+.card-img-top {
+    width: 10rem;
+    height: 16rem;
+    align-self: center;
+    padding-top: 1rem;
+}
+
+h5 {
+    text-align: center;
+}
+
+/* navbary */
+.nav-link {
+    color: white;
+}
+
+.nav-link:hover, .nav-link:focus {
+    color:#ffc107 !important;
+}
+
+/* formuláre */
+
+.form-control.success input{
+    border: 0.5rem solid green;
+}
+
+.form-control.error input {
+    border: 0.5rem solid red;
+}
+
+.varovanie {
+    color: rgb(204, 0, 0);
+}
+
+/* FILM */
+/* FILM - atribúty filmu */
+
+.hlavnyObsahFilmu {
+
+}
+
+.hlavickaFilmu {
+    background-color: rgb(204, 204, 204);
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    text-align: center;
+}
+
+.obrazokFilmu {
+    border-bottom-left-radius: 0.25rem;
+}
+
+.atributyFilmu {
+    border-bottom-right-radius: 0.25rem;
+}
+
+/* FILM - obsah */
+
+.obsahFilmu {
+    background-color: rgb(204, 204, 204);
+    border-radius: 0.25rem;
+}
+
+.hlavickaObsahuFilmu, .hlavickaRecenzieFilmu {
+    padding-top: 0.75rem;
+}
+
+.teloObsahuFilmu {
+
+}
+
+/* FILM - recenzie */
+
+.recenzieFilmu {
+    border-radius: 0.25rem;
+}
+
+.prvyStlpecHodnotenia {
+    width: 70%;
+}
+
+.druhyStlpecHodnotenia {
+    width: 30%;
+}
+
+/* FILM - hodnotenie */
+.hodnotenieFilmu {
+
+}
+
+.hlavickaHodnoteniaFilmu {
+    background-color: rgb(204, 0, 0);
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    text-align: center;
+    color: white;
+}
+
+.ostatneHodnotenia {
+    /*background-color: rgb(204, 204, 204);*/
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+/* TVORCA, UŽÍVATEĽ */
+
+.obrazokTvorcu, .obrazokUzivatela {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.atributyTvorcu, .atributyUzivatela {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.biografiaTvorcu, .filmyTvorcu, .recenzieUzivatela, .hodnoteniaUzivatela {
+    border-radius: 0.25rem;
+}
+
+.tabulkaFilmovTvorcu, .tabulkaFilmovUzivatela {
+    width: 100%;
+}
+
+.prvyStlpecTvorca {
+    width: 25%;
+    text-align: center;
+}
+
+.druhyStlpecTvorca {
+    width: 75%;
+}
+
+.prvyStlpecUzivatel {
+    width: 20%;
+    text-align: center;
+}
+
+.druhyStlpecUzivatel {
+    width: 80%;
+}
+
+/*  */

@@ -9,21 +9,13 @@ use App\Core\AControllerBase;
  * Example of simple controller
  * @package App\Controllers
  */
-class HomeController extends AControllerBase
+class HomeController extends AControllerRedirect
 {
-
     public function index()
     {
         return $this->html(
             [
                 'meno' => 'študent'
             ]);
-    }
-
-    public function contact()
-    {
-        return $this->html(
-            []
-        );
     }
 }
