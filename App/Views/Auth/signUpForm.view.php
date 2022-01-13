@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-10 offset-1 col-md-8 offset-md-2  col-lg-6 offset-lg-3 col-xl-4 offset-xl-4 mt-3">
-            <!-- Formulár na prihlásenie sa -->
-            <form method="post" action="?c=auth&a=login">
+            <!-- Formulár na zaregistrovanie sa -->
+            <form method="post" action="?c=auth&a=signUp">
                 <div class="form-control bg-light mb-3">
                     <!-- Nadpis -->
                     <div class="mb-5">
@@ -10,6 +10,7 @@
                     </div>
                     <!-- časti formuláru -->
                     <div>
+                        <!-- TODO obrazok? -->
                         <!-- Login -->
                         <div class="form-control mb-3">
                             <label for="login" class="form-label"><strong>Login</strong></label>
@@ -32,7 +33,7 @@
                         </div>
                         <!-- tlačítko -->
                         <div class="mb-3">
-                            <button id="submit" class="btn btn-primary" type="submit">Prihlásiť sa</button>
+                            <button id="submit" class="btn btn-primary" type="submit">Zaregistrovať sa</button>
                         </div>
                         <!--  -->
                     </div>

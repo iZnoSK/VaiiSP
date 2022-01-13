@@ -2,23 +2,26 @@
 
 namespace App;
 
+
 class Auth
 {
-    const LOGIN = "admin@admin.sk";
-    const PASSWORD = "admin";
 
     public static function login($login, $password)
     {
-        if ($login == self::LOGIN && $password == self::PASSWORD)
-        {
-            //názov sessionu = meno používateľa
-            $_SESSION['name'] = $login;
-            return true;
+        $user = DatabaseValidator::checkIfUserExists($login);
+        if($user) {
+            if ($login == $user->getLogin() && password_verify($password, $user->getPassword()))
+            {
+                //názov sessionu = meno používateľa
+                $_SESSION['name'] = $login;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     //funkcia na zistenie, či je človek prihlásený

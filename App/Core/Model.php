@@ -110,6 +110,31 @@ abstract class Model implements \JsonSerializable
         }
     }
 
+    static public function getOneByColumn($column, $value)
+    {
+        if ($value == null) return null;
+
+        self::connect();
+        try {
+            $sql = "SELECT * FROM " . self::getTableName() . " WHERE " . $column . "=?";
+            $stmt = self::$connection->prepare($sql);
+            $stmt->execute([$value]);
+            $model = $stmt->fetch();
+            if ($model) {
+                $data = array_fill_keys(self::getDbColumns(), null);
+                $tmpModel = new static();
+                foreach ($data as $key => $item) {
+                    $tmpModel->$key = $model[$key];
+                }
+                return $tmpModel;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            throw new \Exception('Query failed: ' . $e->getMessage());
+        }
+    }
+
     /**
      * Saves the current model to DB (if model id is set, updates it, else creates a new model)
      * @return mixed

@@ -40,6 +40,9 @@
             <!-- zobrazenie záložky logout, ak som prihlásený -->
             <?php if(\App\Auth::isLogged()) { ?>
                 <li class="nav-item">
+                    <a class="nav-link" href="#"><?php echo $_SESSION['name'] ?></a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="?c=auth&a=logout">Odhlásiť sa</a>
                 </li>
             <!-- ak nie som prihlásený, zobraz záložku login a sign up-->
