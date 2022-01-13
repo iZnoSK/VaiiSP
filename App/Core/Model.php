@@ -110,13 +110,14 @@ abstract class Model implements \JsonSerializable
         }
     }
 
-    static public function getOneByColumn($column, $value)
+    static public function getOneByUniqueColumn($uniqueColumn, $value)
     {
-        if ($value == null) return null;
+        if ($value == null || $uniqueColumn == null)
+            return false;
 
         self::connect();
         try {
-            $sql = "SELECT * FROM " . self::getTableName() . " WHERE " . $column . "=?";
+            $sql = "SELECT * FROM " . self::getTableName() . " WHERE " . $uniqueColumn . "=?";
             $stmt = self::$connection->prepare($sql);
             $stmt->execute([$value]);
             $model = $stmt->fetch();

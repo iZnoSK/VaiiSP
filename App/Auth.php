@@ -2,10 +2,8 @@
 
 namespace App;
 
-
 class Auth
 {
-
     public static function login($login, $password)
     {
         $user = DatabaseValidator::checkIfUserExists($login);
@@ -28,6 +26,12 @@ class Auth
     public static function isLogged()
     {
         return isset($_SESSION['name']);
+    }
+
+    //vráti login (email)
+    public static function getName()
+    {
+        return (Auth::isLogged() ? $_SESSION['name'] : "");
     }
 
     //odhlási používateľa

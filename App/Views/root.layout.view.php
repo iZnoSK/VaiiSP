@@ -16,6 +16,7 @@
 </head>
 
 <body>
+<!-- TODO je to správny navbar? -->
 <!-- hlavný navbar -->
 <nav class="navbar bg-black align-items-center">
     <div class="container-fluid">
@@ -28,10 +29,10 @@
             <!-- zobrazenie záložiek Pridanie filmu a Pridanie tvorcu, ak som prihlásený -->
             <?php if(\App\Auth::isLogged()) { ?>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pridať film</a>
+                <a class="nav-link" href="#">Pridanie film</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pridať tvorcu</a>
+                <a class="nav-link" href="#">Pridanie tvorcu</a>
             </li>
             <?php } ?>
         </ul>
@@ -40,18 +41,18 @@
             <!-- zobrazenie záložky logout, ak som prihlásený -->
             <?php if(\App\Auth::isLogged()) { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><?php echo $_SESSION['name'] ?></a>
+                    <a class="nav-link" href="#"><?php echo \App\Auth::getName() ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?c=auth&a=logout">Odhlásiť sa</a>
+                    <a class="nav-link" href="?c=auth&a=logout">Odhlásenie</a>
                 </li>
             <!-- ak nie som prihlásený, zobraz záložku login a sign up-->
             <?php } else { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="?c=auth&a=signUpForm">Zaregistrovať sa</a>
+                    <a class="nav-link" href="?c=auth&a=signUpForm">Registrácia</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?c=auth&a=loginForm">Prihlásiť sa</a>
+                    <a class="nav-link" href="?c=auth&a=loginForm">Prihlásenie</a>
                 </li>
             <?php } ?>
         </ul>
