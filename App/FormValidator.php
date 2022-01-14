@@ -9,7 +9,7 @@ class FormValidator
 {
     //TODO pozriet ako sa robi variabilny pocet premennych, poslat to a v cykle skontrolovat - univerzalne pre vsetky formulare?
     public static function emptyInputSignUp($login, $email, $password, $repeatedPassword) {
-        if(empty(trim($login)) || empty(trim($email)) || empty(trim($password)) || empty(trim($repeatedPassword))) {
+        if(empty($login) || empty($email) || empty($password) || empty($repeatedPassword)) {
             return true;
         } else {
             return false;
@@ -17,7 +17,7 @@ class FormValidator
     }
 
     public static function emptyInputLogin($login,$password) {
-        if(empty(trim($login)) || empty(trim($password))) {
+        if(empty($login) || empty($password)) {
             return true;
         } else {
             return false;
@@ -25,7 +25,7 @@ class FormValidator
     }
 
     public static function emptyInputMovie($title, $release, $length, $origin, $description) {
-        if(empty(trim($title)) || empty(trim($release)) || empty(trim($length)) || empty(trim($origin)) || empty(trim($description))) {
+        if(empty($title) || empty($release) || empty($length) || empty($origin) || empty($description)) {
             return true;
         } else {
             return false;
@@ -85,5 +85,4 @@ class FormValidator
         } else
             return false;
     }
-
 }

@@ -12,6 +12,7 @@ class Auth
             {
                 //názov sessionu = meno používateľa
                 $_SESSION['name'] = $login;
+                $_SESSION['id'] = $user->getId();
                 return true;
             }
             else
@@ -28,16 +29,23 @@ class Auth
         return isset($_SESSION['name']);
     }
 
-    //vráti login (email)
+    //vráti login
     public static function getName()
     {
         return (Auth::isLogged() ? $_SESSION['name'] : "");
+    }
+
+    //vráti login (email)
+    public static function getId()
+    {
+        return (Auth::isLogged() ? $_SESSION['id'] : "");
     }
 
     //odhlási používateľa
     public static function logout()
     {
         unset($_SESSION['name']);
+        unset($_SESSION['id']);
         session_destroy();
     }
 }

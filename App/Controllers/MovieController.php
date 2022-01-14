@@ -38,11 +38,11 @@ class MovieController extends AControllerRedirect
         //TODO upratať! krajšie spraviť
         //TODO URL check?
         //v input posielame login a password
-        $title = $this->request()->getValue('titleOfMovie');
-        $release = $this->request()->getValue('releaseOfMovie');
-        $length = $this->request()->getValue('lengthOfMovie');
-        $origin = $this->request()->getValue('originOfMovie');
-        $description = $this->request()->getValue('descriptionOfMovie');
+        $title = trim($this->request()->getValue('titleOfMovie'));
+        $release = trim($this->request()->getValue('releaseOfMovie'));
+        $length = trim($this->request()->getValue('lengthOfMovie'));
+        $origin = trim($this->request()->getValue('originOfMovie'));
+        $description = trim($this->request()->getValue('descriptionOfMovie'));
 
         if(FormValidator::emptyInputMovie($title, $release, $length, $origin, $description)) {
             $this->redirect('movie', 'movieForm', ['error' => 'Aspoň 1 z polí zostalo prázdne']);

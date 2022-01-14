@@ -134,13 +134,11 @@ class Movie extends \App\Core\Model
         $this->m_description = $m_description;
     }
 
-    //TODO dorobit reviews
     public function getReviews()
     {
         return Review::getAll('movie_id = ?', [$this->id]);
     }
 
-    //TODO dorobit ratings
     public function getRatings()
     {
         return Rating::getAll('movie_id = ?', [$this->id]);

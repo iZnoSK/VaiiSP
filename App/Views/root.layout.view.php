@@ -41,7 +41,7 @@
             <!-- zobrazenie záložky logout, ak som prihlásený -->
             <?php if(\App\Auth::isLogged()) { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><?php echo \App\Auth::getName() ?></a>
+                    <a class="nav-link" href="?c=user"><?php echo \App\Auth::getName() ?></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?c=auth&a=logout">Odhlásenie</a>

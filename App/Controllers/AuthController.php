@@ -38,8 +38,8 @@ class AuthController extends AControllerRedirect
     {
         //TODO URL check?
         //v input posielame login a password
-        $login = $this->request()->getValue('loginOfUser');
-        $password = $this->request()->getValue('passwordOfUser');
+        $login = trim($this->request()->getValue('loginOfUser'));
+        $password = trim($this->request()->getValue('passwordOfUser'));
          if(FormValidator::emptyInputLogin($login, $password)) {
              $this->redirect('auth', 'loginForm', ['error' => 'Aspoň 1 z polí zostalo prázdne']);
          } else if(FormValidator::invalidLogin($login)) {
@@ -73,11 +73,11 @@ class AuthController extends AControllerRedirect
         //TODO upratať! krajšie spraviť
         //TODO URL check?
         //v input posielame login, email, password 2krát
-        $login = $this->request()->getValue('loginOfUser');
-        $email = $this->request()->getValue('emailOfUser');
+        $login = trim($this->request()->getValue('loginOfUser'));
+        $email = trim($this->request()->getValue('emailOfUser'));
         //$poster = $this->request()->getValue('fileOfUser');
-        $password = $this->request()->getValue('passwordOfUser');
-        $repeatedPassword = $this->request()->getValue('repeatedPasswordOfUser');
+        $password = trim($this->request()->getValue('passwordOfUser'));
+        $repeatedPassword = trim($this->request()->getValue('repeatedPasswordOfUser'));
 
         if (FormValidator::emptyInputSignUp($login, $email, $password, $repeatedPassword)) {
             $this->redirect('auth', 'signUpForm', ['error' => 'Aspoň 1 z polí zostalo prázdne']);
@@ -92,7 +92,6 @@ class AuthController extends AControllerRedirect
         } else if(DatabaseValidator::checkIfEmailExists($email)) {
             $this->redirect('auth', 'signUpForm', ['error' => 'E-mail je už zabraný']);
         } else {
-            //TODO sql injection
             if (isset($_FILES['fileOfUser']) && FormValidator::isImage($_FILES['fileOfUser']['tmp_name'])) {
                 if ($_FILES["fileOfUser"]["error"] == UPLOAD_ERR_OK) {
                     //uloženie obrázku
@@ -103,6 +102,7 @@ class AuthController extends AControllerRedirect
                 $this->redirect('auth', 'signUpForm', ['error' => 'Problém s obrázkom']);
                 exit;
             }
+            //TODO sql injection
             $newUser = new Pouzivatel();
             $newUser->setLogin($login);
             $newUser->setEmail($email);

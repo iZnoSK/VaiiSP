@@ -122,4 +122,14 @@ class Pouzivatel extends \App\Core\Model
     {
         $this->u_img = $u_img;
     }
+
+    public function getReviews()
+    {
+        return Review::getAll('user_id = ?', [$this->id]);
+    }
+
+    public function getRatings()
+    {
+        return Rating::getAll('user_id = ?', [$this->id]);
+    }
 }
