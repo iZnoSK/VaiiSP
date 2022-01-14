@@ -17,7 +17,15 @@ class FormValidator
     }
 
     public static function emptyInputLogin($login,$password) {
-        if(empty(trim($login))|| empty(trim($password))) {
+        if(empty(trim($login)) || empty(trim($password))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function emptyInputMovie($title, $release, $length, $origin, $description) {
+        if(empty(trim($title)) || empty(trim($release)) || empty(trim($length)) || empty(trim($origin)) || empty(trim($description))) {
             return true;
         } else {
             return false;
@@ -59,4 +67,23 @@ class FormValidator
             return false;
         }
     }
+
+    public static function invalidYear($year) {
+        if(!is_numeric($year)) {
+            return true;
+        } else if ($year < 1900 || $year > 2030) {
+            return true;
+        } else
+            return false;
+    }
+
+    public static function invalidLength($length) {
+        if(!is_numeric($length)) {
+            return true;
+        } else if ($length < 1 || $length > 900) {
+            return true;
+        } else
+            return false;
+    }
+
 }

@@ -29,7 +29,7 @@
             <!-- zobrazenie záložiek Pridanie filmu a Pridanie tvorcu, ak som prihlásený -->
             <?php if(\App\Auth::isLogged()) { ?>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pridanie filmu</a>
+                <a class="nav-link" href="?c=movie&a=movieForm">Pridanie filmu</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Pridanie tvorcu</a>

@@ -13,7 +13,7 @@
                     <div>
                         <!-- error hláška, ak sme zadali zlý login alebo heslo -->
                         <?php if($data['error'] != "") { ?>
-                            <div class="alert alert-danger alert-dismissible">
+                            <div class="alert alert-danger alert-dismissible text-center">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                                 <?= $data['error'] ?>
                             </div>
