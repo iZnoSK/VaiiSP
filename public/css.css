@@ -1,7 +1,7 @@
 /* BACKGROUND BODY */
 
 body {
-/*background-image: url('files/background.jpg');*/
+    background-image: url('files/common/background.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;

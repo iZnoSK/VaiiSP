@@ -70,10 +70,12 @@ class AuthController extends AControllerRedirect
     // v signUp.view.php vo formulári -> c=auth & a=signUp
     public function signUp()
     {
+        //TODO upratať! krajšie spraviť
         //TODO URL check?
         //v input posielame login, email, password 2krát
         $login = $this->request()->getValue('loginOfUser');
         $email = $this->request()->getValue('emailOfUser');
+        //$poster = $this->request()->getValue('fileOfUser');
         $password = $this->request()->getValue('passwordOfUser');
         $repeatedPassword = $this->request()->getValue('repeatedPasswordOfUser');
 
@@ -91,9 +93,20 @@ class AuthController extends AControllerRedirect
             $this->redirect('auth', 'signUpForm', ['error' => 'E-mail je už zabraný']);
         } else {
             //TODO sql injection
+            if (isset($_FILES['fileOfUser']) && FormValidator::isImage($_FILES['fileOfUser']['tmp_name'])) {
+                if ($_FILES["fileOfUser"]["error"] == UPLOAD_ERR_OK) {
+                    //uloženie obrázku
+                    $nameOfFile = date('Y-m-d-H-i-s_') . basename($_FILES['fileOfUser']['name']);
+                    move_uploaded_file($_FILES['fileOfUser']['tmp_name'], "public/files/userImages/" . "$nameOfFile");
+                }
+            } else {
+                $this->redirect('auth', 'signUpForm', ['error' => 'Problém s obrázkom']);
+                exit;
+            }
             $newUser = new Pouzivatel();
             $newUser->setLogin($login);
             $newUser->setEmail($email);
+            $newUser->setImg($nameOfFile);
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);   //TODO asi presunut hashovanie do Auth?
             $newUser->setPassword($hashedPassword);
             $newUser->save();

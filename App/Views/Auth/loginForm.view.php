@@ -20,7 +20,7 @@
                         <?php } ?>
                         <!-- Login -->
                         <div class="form-control mb-3">
-                            <label for="login" class="form-label"><strong>Login</strong></label>
+                            <label for="login" class="form-label"><strong>Používateľské meno</strong></label>
                             <input id="login" class="form-control" name="loginOfUser" type="text" required>
                         </div>
                         <!-- Heslo -->

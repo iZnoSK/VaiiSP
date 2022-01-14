@@ -3,6 +3,7 @@
 <head>
     <title>Databáza filmov</title>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="public/files/common/favicon.png">
     <!-- viewport pre responzívny dizajn -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
@@ -15,11 +16,10 @@
     <link rel="stylesheet" href="public/css.css">
 </head>
 
-<body>
-<!-- TODO je to správny navbar? -->
+<body
 <!-- hlavný navbar -->
-<nav class="navbar bg-black align-items-center">
-    <div class="container-fluid">
+<nav class="navbar bg-dark align-items-center">
+    <div class="container-md">
         <!-- záložky na začiatku -->
         <ul class="nav justify-content-start">
             <!-- Záložka filmy -->
@@ -29,7 +29,7 @@
             <!-- zobrazenie záložiek Pridanie filmu a Pridanie tvorcu, ak som prihlásený -->
             <?php if(\App\Auth::isLogged()) { ?>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pridanie film</a>
+                <a class="nav-link" href="#">Pridanie filmu</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Pridanie tvorcu</a>
