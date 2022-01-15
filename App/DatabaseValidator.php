@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Core\DB\Connection;
+use App\Models\Movie;
 use App\Models\Pouzivatel;
 
 class DatabaseValidator
@@ -23,6 +24,19 @@ class DatabaseValidator
         } else {
             return false;
         }
+    }
+
+    public static function checkIfMovieExists($title, $release) {
+        $titles = Movie::getAll("m_title = ?", [$title]);
+        $releases = Movie::getAll("m_release = ?", [$release]);
+        foreach ($titles as $title) {
+            foreach ($releases as $release) {
+                if($title->getId() == $release->getId()){
+                    return $title;
+                }
+            }
+        }
+        return false;
     }
 
 }

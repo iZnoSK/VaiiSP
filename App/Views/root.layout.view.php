@@ -18,6 +18,7 @@
 
 <body
 <!-- hlavný navbar -->
+<!-- TODO responzívne schovať -->
 <nav class="navbar bg-dark align-items-center">
     <div class="container-md">
         <!-- záložky na začiatku -->
@@ -29,10 +30,10 @@
             <!-- zobrazenie záložiek Pridanie filmu a Pridanie tvorcu, ak som prihlásený -->
             <?php if(\App\Auth::isLogged()) { ?>
             <li class="nav-item">
-                <a class="nav-link" href="?c=movie&a=movieForm">Pridanie filmu</a>
+                <a class="nav-link" href="?c=movie&a=movieForm">Pridať film</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pridanie tvorcu</a>
+                <a class="nav-link" href="#">Pridať tvorcu</a>
             </li>
             <?php } ?>
         </ul>
@@ -44,7 +45,7 @@
                     <a class="nav-link" href="?c=user"><?php echo \App\Auth::getName() ?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?c=auth&a=logout">Odhlásenie</a>
+                    <a class="nav-link" href="?c=auth&a=logout">Odhlásiť sa</a>
                 </li>
             <!-- ak nie som prihlásený, zobraz záložku login a sign up-->
             <?php } else { ?>
@@ -52,7 +53,7 @@
                     <a class="nav-link" href="?c=auth&a=signUpForm">Registrácia</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?c=auth&a=loginForm">Prihlásenie</a>
+                    <a class="nav-link" href="?c=auth&a=loginForm">Prihlásiť sa</a>
                 </li>
             <?php } ?>
         </ul>

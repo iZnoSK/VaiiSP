@@ -4,14 +4,14 @@ namespace App\Models;
 
 class Review extends \App\Core\Model
 {
-    public function __construct(public int $user_id = 0, public int $movie_id = 0, public ?string $re_text = null)
+    public function __construct(public int $id = 0, public int $user_id = 0, public ?string $re_text = null)
     {
 
     }
 
     static public function setDbColumns()
     {
-        return ['user_id', 'movie_id', 're_text'];
+        return ['id', 'user_id', 're_text'];
     }
 
     static public function setTableName()
@@ -38,17 +38,17 @@ class Review extends \App\Core\Model
     /**
      * @return int
      */
-    public function getMovieId(): int
+    public function getId(): int
     {
-        return $this->movie_id;
+        return $this->id;
     }
 
     /**
-     * @param int $movie_id
+     * @param int $id
      */
-    public function setMovieId(int $movie_id): void
+    public function setId(int $id): void
     {
-        $this->movie_id = $movie_id;
+        $this->id = $id;
     }
 
     /**

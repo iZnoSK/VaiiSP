@@ -3,11 +3,11 @@
     <div class="row">
         <div class="col-12 col-sm-10 offset-sm-1 col-xl-8 offset-xl-2 mt-3">
             <!-- formulár na pridanie filmu -->
-            <form method="post" enctype="multipart/form-data" action="?c=movie&a=upload">
+            <form method="post" enctype="multipart/form-data" action="?c=movie&a=editMovie">
                 <div class="form-control bg-light mb-3">
                     <!-- Nadpis -->
                     <div class="mb-4">
-                        <h5><strong>Pridanie filmu</strong></h5>
+                        <h5><strong>Úprava filmu</strong></h5>
                     </div>
                     <!-- časti formuláru -->
                     <div class="row">
@@ -18,30 +18,27 @@
                                 <?= $data['error'] ?>
                             </div>
                         <?php } ?>
+                        <!-- id upravovaného filmu -->
+                        <input type="hidden" name="id" value="<?= $data['movie']->getId() ?>">
                         <!-- názov -->
                         <div class="col-12 col-lg-6 mb-3">
                             <label for="title" class="form-label">Názov</label>
-                            <input id="title" class="form-control" name="titleOfMovie" type="text" required>
+                            <input id="title" class="form-control" name="titleOfMovie" type="text" value="<?= $data['movie']->getTitle() ?>" required>
                         </div>
                         <!-- rok vydania -->
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
                             <label for="release" class="form-label">Rok vydania</label>
-                            <input id="release" class="form-control" name="releaseOfMovie" type="number" placeholder="YYYY" min="1900" max="2030" required>
+                            <input id="release" class="form-control" name="releaseOfMovie" type="number" placeholder="YYYY" min="1900" max="2030" value="<?= $data['movie']->getRelease() ?>" required>
                         </div>
                         <!-- dĺžka filmu -->
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
                             <label for="length" class="form-label">Dĺžka filmu</label>
-                            <input id="length" class="form-control" name="lengthOfMovie" type="number" min="1" max="900" required>
-                        </div>
-                        <!-- obrázok -->
-                        <div class="col-12 col-lg-6 mb-3">
-                            <label for="formFile" class="form-label">Plagát</label>
-                            <input id="formFile" class="form-control" name="fileOfMovie" type="file" required>
+                            <input id="length" class="form-control" name="lengthOfMovie" type="number" min="1" max="900" value="<?= $data['movie']->getLength() ?>" required>
                         </div>
                         <!-- Krajina pôvodu -->
-                        <div class="col-12 col-lg-6 mb-3">
+                        <div class="col-12 mb-3">
                             <label for="origin" class="form-label">Krajina pôvodu</label>
-                            <input id="origin" class="form-control" name="originOfMovie" type="text" required>
+                            <input id="origin" class="form-control" name="originOfMovie" type="text" value="<?= $data['movie']->getOrigin() ?>" required>
                         </div>
                         <!-- režisér -->
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
@@ -128,7 +125,7 @@
                         <!-- popis filmu -->
                         <div class="col-12 mb-3">
                             <label for="description" class="form-label">Popis filmu</label>
-                            <textarea id="description" class="form-control" name="descriptionOfMovie" rows="7" required></textarea>
+                            <textarea id="description" class="form-control" name="descriptionOfMovie" rows="7" required><?= $data['movie']->getDescription() ?></textarea>
                         </div>
                         <!-- tlačítko -->
                         <div class="mb-3">

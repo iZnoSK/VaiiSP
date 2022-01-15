@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+use App\Models\Rating;
+use App\Models\Review;
 
 //TODO vyriesit problem s dlhym descriptionom - rozdelit ho nejako na uvodnu stranku (prvych 100 znakov alebo take cosi)
 class Movie extends \App\Core\Model
@@ -134,14 +136,28 @@ class Movie extends \App\Core\Model
         $this->m_description = $m_description;
     }
 
+    // ---------------------------------
+
+    //TODO prepocitavat vzdy ked pribudne novy rating, nie takto
+    public function getFinalRating()
+    {
+        $finalRating = 0;
+        $counter = 0;
+        foreach ($this->getRatings() as $rating) {
+            $counter++;
+            $finalRating = (($finalRating + $rating->getPercentage()) / $counter);
+        }
+        return (int)$finalRating;
+    }
+
     public function getReviews()
     {
-        return Review::getAll('movie_id = ?', [$this->id]);
+        return Review::getAll('id = ?', [$this->id]);
     }
 
     public function getRatings()
     {
-        return Rating::getAll('movie_id = ?', [$this->id]);
+        return Rating::getAll('id = ?', [$this->id]);
     }
 
     //TODO dorobit genres asi

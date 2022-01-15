@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Core\AControllerBase;
+use App\Models\Movie;
 
 /**
  * Class HomeController
@@ -13,9 +13,12 @@ class HomeController extends AControllerRedirect
 {
     public function index()
     {
+        //$movies je pole všetkých záznamov z tabuľky movies
+        $movies = Movie::getAll();
+        //v $data pod položkou 'movies' bude mať pole $movies
         return $this->html(
             [
-                'meno' => 'študent'
+                'movies' => $movies
             ]);
     }
 }

@@ -191,6 +191,25 @@ abstract class Model implements \JsonSerializable
         }
     }
 
+/*    public function deleteByPrimaryKey($primaryKey)
+    {
+        if ($primaryKey == null) {
+            return;
+        }
+        self::connect();
+        try {
+            $sql = "DELETE FROM " . self::getTableName() . " WHERE ".$primaryKey."=?";
+            $stmt = self::$connection->prepare($sql);
+            $stmt->execute([$this->{self::$pkColumn}]);
+            if ($stmt->rowCount() == 0) {
+                throw new \Exception('Model not found!');
+            }
+        } catch (PDOException $e) {
+            throw new \Exception('Query failed: ' . $e->getMessage());
+        }
+    }*/
+
+
     /**
      * Returns the connection to database
      * @return null

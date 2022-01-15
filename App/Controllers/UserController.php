@@ -20,7 +20,7 @@ class UserController extends AControllerRedirect
         $user = Pouzivatel::getOne(Auth::getId());
         $movies = [];
         foreach ($user->getRatings() as $rating) {
-            $movies[] = Movie::getOne($rating->getMovieId());
+            $movies[] = Movie::getOne($rating->getId());
         }
         return $this->html(
             [
@@ -36,7 +36,7 @@ class UserController extends AControllerRedirect
         $user = Pouzivatel::getOne($userId);
         $movies = [];
         foreach ($user->getRatings() as $rating) {
-            $movies[] = Movie::getOne($rating->getMovieId());
+            $movies[] = Movie::getOne($rating->getId());
         }
         return $this->html(
             [
