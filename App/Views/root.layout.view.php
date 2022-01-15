@@ -35,6 +35,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Pridať tvorcu</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="?c=genre&a=genreForm">Pridať žáner</a>
+            </li>
             <?php } ?>
         </ul>
         <!-- záložky na konci -->

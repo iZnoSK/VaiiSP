@@ -19,7 +19,7 @@
                         <strong>Rok vydania: </strong><?= $data['movie']->getRelease()?><br>
                         <strong>Krajina pôvodu: </strong><?= $data['movie']->getOrigin()?><br>
                         <strong>Dĺžka trvania: </strong><?= $data['movie']->getLength()?><br>
-                        <strong>Žánre: </strong>Dobrodružný / Sci-Fi<br>
+                        <strong>Žánre: </strong><?= $data['movie']->getGenresString() ?><br>
                         <strong>Réžia: </strong> Denis Villeneuve<br>
                         <strong>Scenár: </strong> Eric Roth, Denis Villeneuve, Jon Spaihts<br>
                         <strong>Kamera: </strong> Greig Fraser<br>
@@ -54,7 +54,7 @@
                         <h4><strong>Recenzie</strong></h4>
                     </header>
                     <hr>
-                    <?php if(!$data['hasReview']) { ?>
+                    <?php if(\App\Auth::isLogged() && !$data['hasReview']) { ?>
                     <!-- formulár na novú recenziu -->
                     <form method="post" action="?c=movie&a=addReview&movieId=<?= $data['movie']->getId() ?>">
                         <div class="form-control bg-light mb-3">
@@ -95,7 +95,7 @@
                 <header class="col-12 hlavickaHodnoteniaFilmu pt-1">
                     <h3><strong><?= $data['movie']->getFinalRating()?>%</strong></h3>
                 </header>
-                <?php if(!$data['hasRating']) { ?>
+                <?php if(\App\Auth::isLogged() && !$data['hasRating']) { ?>
                 <!-- Formulár na ohodnotenie filnu -->
                 <form method="post" action="?c=movie&a=addRating&movieId=<?= $data['movie']->getId() ?>" class="bg-light">
                     <div class="form-control bg-light mb-2 mt-2">

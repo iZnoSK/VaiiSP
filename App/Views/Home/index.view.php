@@ -16,10 +16,10 @@
                     <hr>
                     <!-- atribúty filmu -->
                     <p>
-                        <strong>Hodnotenie:</strong> <?= $movie->getFinalRating() ?>% <br>
-                        <strong>Žáner:</strong> Dobrodružný / Sci-Fi <br>
-                        <strong>Rok vydania:</strong> <?= $movie->getRelease() ?> <br>
-                        <strong>Dĺžka filmu:</strong> <?= $movie->getLength() ?> minút
+                        <strong>Hodnotenie: </strong><?= $movie->getFinalRating() ?>%<br>
+                        <strong>Rok vydania: </strong><?= $movie->getRelease() ?><br>
+                        <strong>Žánre: </strong><?= $movie->getGenresString() ?><br>
+                        <strong>Dĺžka filmu: </strong><?= $movie->getLength() ?> minút
                     </p>
                     <hr>
                     <!-- popis filmu -->

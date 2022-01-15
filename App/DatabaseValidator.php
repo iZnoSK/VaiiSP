@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Core\DB\Connection;
+use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Pouzivatel;
 
@@ -21,6 +22,15 @@ class DatabaseValidator
         $user = Pouzivatel::getOneByUniqueColumn('u_email', $email);
         if($user) {
             return $user;
+        } else {
+            return false;
+        }
+    }
+
+    public static function checkIfGenreExists($genre) {
+        $genre = Genre::getOneByUniqueColumn('g_name', $genre);
+        if($genre) {
+            return $genre;
         } else {
             return false;
         }

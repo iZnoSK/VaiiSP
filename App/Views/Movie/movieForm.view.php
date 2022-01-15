@@ -102,13 +102,10 @@
                         <!-- žáner -->
                         <div class="col-12 col-sm-6 mb-3">
                             <label for="genres" class="form-label">Žánre</label>
-                            <select id="genres" class="form-select" name="genresOfMovie" multiple required>
-                                <option>Horor</option>
-                                <option>Dráma</option>
-                                <option>Akčný</option>
-                                <option>Animovaný</option>
-                                <option>Komédia</option>
-                                <option>Thriller</option>
+                            <select id="genres" class="form-select" name="genresOfMovie[]" multiple required>
+                                <?php foreach ($data['genres'] as $genre) { ?>
+                                    <option value="<?= $genre->getId() ?>"><?= $genre->getName() ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                         <!-- herci -->

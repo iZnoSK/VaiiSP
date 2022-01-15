@@ -7,7 +7,7 @@
                 <div class="form-control bg-light mb-3">
                     <!-- Nadpis -->
                     <div class="mb-4">
-                        <h5><strong>Úprava filmu</strong></h5>
+                        <h5><strong>Úprava filmu: <?= $data['movie']->getTitle() ?> (<?= $data['movie']->getRelease() ?>)</strong></h5>
                     </div>
                     <!-- časti formuláru -->
                     <div class="row">
@@ -20,25 +20,17 @@
                         <?php } ?>
                         <!-- id upravovaného filmu -->
                         <input type="hidden" name="id" value="<?= $data['movie']->getId() ?>">
-                        <!-- názov -->
-                        <div class="col-12 col-lg-6 mb-3">
-                            <label for="title" class="form-label">Názov</label>
-                            <input id="title" class="form-control" name="titleOfMovie" type="text" value="<?= $data['movie']->getTitle() ?>" required>
-                        </div>
-                        <!-- rok vydania -->
-                        <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                            <label for="release" class="form-label">Rok vydania</label>
-                            <input id="release" class="form-control" name="releaseOfMovie" type="number" placeholder="YYYY" min="1900" max="2030" value="<?= $data['movie']->getRelease() ?>" required>
-                        </div>
-                        <!-- dĺžka filmu -->
-                        <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                            <label for="length" class="form-label">Dĺžka filmu</label>
-                            <input id="length" class="form-control" name="lengthOfMovie" type="number" min="1" max="900" value="<?= $data['movie']->getLength() ?>" required>
-                        </div>
+                        <input type="hidden" name="titleOfMovie" value="<?= $data['movie']->getTitle() ?>">
+                        <input type="hidden" name="releaseOfMovie" value="<?= $data['movie']->getRelease() ?>">
                         <!-- Krajina pôvodu -->
-                        <div class="col-12 mb-3">
+                        <div class="col-12 col-sm-6 col-lg-8 mb-3">
                             <label for="origin" class="form-label">Krajina pôvodu</label>
                             <input id="origin" class="form-control" name="originOfMovie" type="text" value="<?= $data['movie']->getOrigin() ?>" required>
+                        </div>
+                        <!-- dĺžka filmu -->
+                        <div class="col-12 col-sm-6 col-lg-4 mb-3">
+                            <label for="length" class="form-label">Dĺžka filmu</label>
+                            <input id="length" class="form-control" name="lengthOfMovie" type="number" min="1" max="900" value="<?= $data['movie']->getLength() ?>" required>
                         </div>
                         <!-- režisér -->
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
@@ -99,13 +91,12 @@
                         <!-- žáner -->
                         <div class="col-12 col-sm-6 mb-3">
                             <label for="genres" class="form-label">Žánre</label>
-                            <select id="genres" class="form-select" name="genresOfMovie" multiple required>
-                                <option>Horor</option>
-                                <option>Dráma</option>
-                                <option>Akčný</option>
-                                <option>Animovaný</option>
-                                <option>Komédia</option>
-                                <option>Thriller</option>
+                            <select id="genres" class="form-select" name="genresOfMovie[]" multiple required>
+                                <?php $i = 0; foreach ($data['genres'] as $genre) { ?>
+                                    <option value="<?= $genre->getId() ?>"<?php if(in_array($genre->getId(), $data['genresIds'])) { ?>selected<?php } ?>>
+                                        <?= $genre->getName() ?>
+                                    </option>
+                                <?php } ?>
                             </select>
                         </div>
                         <!-- herci -->

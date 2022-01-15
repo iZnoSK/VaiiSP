@@ -40,6 +40,14 @@ class FormValidator
         }
     }
 
+    public static function emptyInputGenre($genre) {
+        if(empty($genre)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static function isImage($path) {
         $a = getimagesize($path);
         $image_type = $a[2];    //$a[2] has the image type.

@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Models\Rating;
 use App\Models\Review;
+use App\Models\MovieGenre;
 
 //TODO vyriesit problem s dlhym descriptionom - rozdelit ho nejako na uvodnu stranku (prvych 100 znakov alebo take cosi)
 class Movie extends \App\Core\Model
@@ -160,5 +161,19 @@ class Movie extends \App\Core\Model
         return Rating::getAll('id = ?', [$this->id]);
     }
 
-    //TODO dorobit genres asi
+    public function getGenres()
+    {
+        return MovieGenre::getAll('id = ?', [$this->id]);
+    }
+
+    public function getGenresString()
+    {
+        $movieGenres = $this->getGenres();
+        $genreNames = [];
+        foreach ($movieGenres as $movieGenre) {
+            $genreNames[] = Genre::getOne($movieGenre->getGenreId())->getName();
+        }
+        $genres = implode(", ", $genreNames);
+        return $genres;
+    }
 }
