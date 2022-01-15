@@ -33,7 +33,7 @@
                 <a class="nav-link" href="?c=movie&a=movieForm">Pridať film</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pridať tvorcu</a>
+                <a class="nav-link" href="?c=creator&a=creatorForm">Pridať tvorcu</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="?c=genre&a=genreForm">Pridať žáner</a>

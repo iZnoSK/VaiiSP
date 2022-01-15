@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Core\DB\Connection;
+use App\Models\Creator;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Pouzivatel;
@@ -49,4 +50,20 @@ class DatabaseValidator
         return false;
     }
 
+    public static function checkIfCreatorExists(string $name, string $surname, string $dateOfBirth)
+    {
+        $names = Creator::getAll("c_name = ?", [$name]);
+        $surnames = Creator::getAll("c_surname = ?", [$surname]);
+        $dateOfBirths = Creator::getAll("c_surname = ?", [$surname]);
+        foreach ($names as $name) {
+            foreach ($surnames as $surname) {
+                foreach ($dateOfBirths as $dateOfBirth) {
+                    if ($name->getId() == $surname->getId() && $surname->getId() == $dateOfBirth->getId()) {
+                        return $name;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

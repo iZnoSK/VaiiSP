@@ -48,6 +48,14 @@ class FormValidator
         }
     }
 
+    public static function emptyInputCreator($name, $surname, $dateOfBirth, $placeOfBirth, $role, $biography) {
+        if(empty($name) || empty($surname) || empty($dateOfBirth) || empty($placeOfBirth) || empty($role) || empty($biography)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static function isImage($path) {
         $a = getimagesize($path);
         $image_type = $a[2];    //$a[2] has the image type.
