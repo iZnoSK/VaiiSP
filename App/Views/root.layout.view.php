@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-    <title>Databáza filmov</title>
+    <title>Filmová databáza</title>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="public/files/common/favicon.png">
     <!-- viewport pre responzívny dizajn -->

@@ -32,6 +32,14 @@ class FormValidator
         }
     }
 
+    public static function emptyInputReview($review) {
+        if(empty($review)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static function isImage($path) {
         $a = getimagesize($path);
         $image_type = $a[2];    //$a[2] has the image type.
@@ -81,6 +89,15 @@ class FormValidator
         if(!is_numeric($length)) {
             return true;
         } else if ($length < 1 || $length > 900) {
+            return true;
+        } else
+            return false;
+    }
+
+    public static function invalidRating($percentage) {
+        if(!is_numeric($percentage)) {
+            return true;
+        } else if ($percentage < 1 || $percentage > 100) {
             return true;
         } else
             return false;

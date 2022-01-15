@@ -7,6 +7,7 @@ use App\DatabaseValidator;
 use App\FormValidator;
 use App\Core\Responses\Response;
 use App\Models\Movie;
+use App\Models\Pouzivatel;
 use App\Models\Rating;
 use App\Models\Review;
 
@@ -151,14 +152,64 @@ class MovieController extends AControllerRedirect
         }
     }
 
-/*    public function getProfile()
+    public function getProfile()
     {
-        $userId = $this->request()->getValue('id');
-        $movie = Movie::getOne($userId);
+        $movieId = $this->request()->getValue('id');
+        $movie = Movie::getOne($movieId);
+        $reviewUsers = [];
+        foreach ($movie->getReviews() as $review) {
+            $reviewUsers[] = Pouzivatel::getOne($review->getUserId());
+        }
+        $ratingUsers = [];
+        foreach ($movie->getRatings() as $rating) {
+            $ratingUsers[] = Pouzivatel::getOne($rating->getUserId());
+        }
+        $hasRating = Rating::getOneByUniqueColumn('user_id', Auth::getId());
+        $hasReview = Review::getOneByUniqueColumn('user_id', Auth::getId());
         return $this->html(
             [
-                'movie' => $movie
+                'movie' => $movie,
+                'reviewUsers' => $reviewUsers,
+                'ratingUsers' => $ratingUsers,
+                'hasRating' => $hasRating,
+                'hasReview' => $hasReview
             ]
         );
-    }*/
+    }
+
+    public function addReview()
+    {
+        if (!Auth::isLogged()) {
+            $this->redirect("home");
+        }
+        $movieId = $this->request()->getValue('movieId');
+        $userId = Auth::getId();
+        $text = trim($this->request()->getValue('reviewOfMovie'));
+        if(!FormValidator::emptyInputReview($text)) {                                     //mozno nejaku chybovu hlasku
+            $review = new Review();
+            $review->setId($movieId);
+            $review->setUserId($userId);
+            $review->setText($text);
+            $review->add();
+        }
+        $this->redirect('movie', 'getProfile', ['id' => $movieId]);
+    }
+
+    public function addRating()
+    {
+        if (!Auth::isLogged()) {
+            $this->redirect("home");
+        }
+        $movieId = $this->request()->getValue('movieId');
+        $userId = Auth::getId();
+        $percentage = trim($this->request()->getValue('ratingOfMovie'));
+        if(!FormValidator::invalidRating($percentage)) {                                     //mozno nejaku chybovu hlasku
+            $rating = new Rating();
+            $rating->setId($movieId);
+            $rating->setUserId($userId);
+            $rating->setPercentage($percentage);
+            $rating->add();
+        }
+        $this->redirect('movie', 'getProfile', ['id' => $movieId]);
+    }
 }

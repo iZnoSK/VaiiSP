@@ -92,6 +92,7 @@ class AuthController extends AControllerRedirect
         } else if(DatabaseValidator::checkIfEmailExists($email)) {
             $this->redirect('auth', 'signUpForm', ['error' => 'E-mail je už zabraný']);
         } else {
+            //TODO mozno dat nejaky default obrazok
             if (isset($_FILES['fileOfUser']) && FormValidator::isImage($_FILES['fileOfUser']['tmp_name'])) {
                 if ($_FILES["fileOfUser"]["error"] == UPLOAD_ERR_OK) {
                     //uloženie obrázku

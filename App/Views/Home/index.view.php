@@ -26,7 +26,7 @@
                     <p class="card-text">
                         <?= substr($movie->getDescription(), 0, 300) ?>...
                     </p>
-                    <span>(<a href="#">Viac informácií o filme</a>)</span>
+                    <span>(<a href="?c=movie&a=getProfile&id=<?= $movie->getId() ?>">Viac informácií o filme</a>)</span>
                     <!-- zobrazenie tlačidiel na úpravu, ak som prihlásený -->
                     <?php if(\App\Auth::isLogged()) { ?>
                         <hr>
