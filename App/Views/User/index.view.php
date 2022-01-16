@@ -12,7 +12,21 @@
                 </div>
                 <!-- atribúty užívateľa -->
                 <div class="col-10 pt-2 pb-1 bg-light atributyUzivatela">
+                    <!-- Login -->
                     <h4><strong><?= $data['user']->getLogin() ?></strong></h4>
+                    <!-- tlačítka -->
+                    <!-- zobrazenie tlačidiel na úpravu, ak som prihlásený -->
+                    <?php if((\App\Auth::isLogged()) && (\App\Auth::getId() == $data['user']->getId())) { ?>
+                        <!-- tlačidlo na vymazanie filmu -->
+                        <a href="?c=user&a=removeUser&id=<?= $data['user']->getId() ?>" class="btn btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                        <!-- tlačidlo na úpravu filmu -->
+                        <a href="?c=user&a=editUserForm&id=<?= $data['user']->getId() ?>" class="btn btn-primary">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    <?php } ?>
+                    <!-- E-mail -->
                     <hr>
                     <p>
                         <strong>E-mail: </strong><?= $data['user']->getEmail() ?>
