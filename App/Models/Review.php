@@ -4,14 +4,15 @@ namespace App\Models;
 
 class Review extends \App\Core\Model
 {
-    public function __construct(public int $id = 0, public int $user_id = 0, public ?string $re_text = null)
+    public function __construct(public int $id = 0, public int $user_id = 0, public ?string $user_login = null,
+                                public ?string $re_text = null)
     {
 
     }
 
     static public function setDbColumns()
     {
-        return ['id', 'user_id', 're_text'];
+        return ['id', 'user_id', 'user_login', 're_text'];
     }
 
     static public function setTableName()
@@ -65,5 +66,21 @@ class Review extends \App\Core\Model
     public function setText(?string $re_text): void
     {
         $this->re_text = $re_text;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUserLogin(): ?string
+    {
+        return $this->user_login;
+    }
+
+    /**
+     * @param string|null $user_login
+     */
+    public function setUserLogin(?string $user_login): void
+    {
+        $this->user_login = $user_login;
     }
 }

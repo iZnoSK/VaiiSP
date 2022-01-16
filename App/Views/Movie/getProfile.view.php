@@ -5,6 +5,7 @@
         <div class="col-12 col-xl-9 mt-2 mb-2 hlavnyObsahFilmu">
             <!-- Atribúty filmu -->
             <div class="row">
+                <input id="idOfMovie" type="hidden" value="<?= $data['movie']->getId()?>">
                 <!-- Názov filmu -->
                 <header class="col-12 hlavickaFilmu pt-1">
                     <h3><strong><?= $data['movie']->getTitle()?></strong></h3>
@@ -79,13 +80,9 @@
                     <hr>
                     <?php } ?>
                     <!-- všetky recenzie -->
-                    <?php $i = 0; foreach ($data['movie']->getReviews() as $review) { ?>
-                        <h6><strong><?php echo $data['reviewUsers'][$i]->getLogin() ?></strong></h6>
-                        <p>
-                            <?php echo $review->getText(); ?>
-                        </p>
-                        <hr>
-                        <?php $i++;} ?>
+                    <div id="reviews">
+
+                    </div>
                     <!-- -->
                 </div>
                 <!-- -->
@@ -134,17 +131,7 @@
                         </tr>
                         </thead>
                         <!-- Telo tabuľky -->
-                        <tbody>
-                        <?php $i = 0; foreach ($data['movie']->getRatings() as $rating) { ?>
-                        <tr>
-                            <td class="prvyStlpecHodnotenia">
-                                <?php echo $data['ratingUsers'][$i]->getLogin() ?>
-                            </td>
-                            <td class="druhyStlpecHodnotenia">
-                                <?php echo $rating->getPercentage(); ?>%
-                            </td>
-                        </tr>
-                        <?php $i++;} ?>
+                        <tbody id="ratings">
                         </tbody>
                     </table>
                     <!-- -->

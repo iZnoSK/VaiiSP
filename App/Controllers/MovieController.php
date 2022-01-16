@@ -302,6 +302,20 @@ class MovieController extends AControllerRedirect
         }
     }
 
+    public function getRatings() {
+        $movieId = $this->request()->getValue('id');
+        $movie = Movie::getOne($movieId);
+        $ratings = $movie->getRatings();
+        return $this->json($ratings);
+    }
+
+    public function getReviews() {
+        $movieId = $this->request()->getValue('id');
+        $movie = Movie::getOne($movieId);
+        $reviews = $movie->getReviews();
+        return $this->json($reviews);
+    }
+
     public function getProfile()
     {
         $movieId = $this->request()->getValue('id');
@@ -342,6 +356,7 @@ class MovieController extends AControllerRedirect
                 $hasReview = true;
             }
         }
+
         return $this->html(
             [
                 'movie' => $movie,
@@ -365,11 +380,13 @@ class MovieController extends AControllerRedirect
         }
         $movieId = $this->request()->getValue('movieId');
         $userId = Auth::getId();
+        $userLogin = Auth::getName();
         $text = trim($this->request()->getValue('reviewOfMovie'));
         if(!FormValidator::emptyInputReview($text)) {                                     //mozno nejaku chybovu hlasku
             $review = new Review();
             $review->setId($movieId);
             $review->setUserId($userId);
+            $review->setUserLogin($userLogin);
             $review->setText($text);
             $review->add();
         }
@@ -383,11 +400,13 @@ class MovieController extends AControllerRedirect
         }
         $movieId = $this->request()->getValue('movieId');
         $userId = Auth::getId();
+        $userLogin = Auth::getName();
         $percentage = trim($this->request()->getValue('ratingOfMovie'));
         if(!FormValidator::invalidRating($percentage)) {                                     //mozno nejaku chybovu hlasku
             $rating = new Rating();
             $rating->setId($movieId);
             $rating->setUserId($userId);
+            $rating->setUserLogin($userLogin);
             $rating->setPercentage($percentage);
             $rating->add();
         }
