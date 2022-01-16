@@ -61,114 +61,16 @@
                 </thead>
                 <!-- Telo tabuľky -->
                 <tbody>
+                <?php foreach ($data['movies'] as $movie) { ?>
                 <tr>
                     <td class="prvyStlpecTvorca">
-                        1999
+                        <?= $movie->getRelease() ?>
                     </td>
                     <td class="druhyStlpecTvorca">
-                        Duna
+                        <?= $movie->getTitle() ?>
                     </td>
                 </tr>
-
-                <tr>
-                    <td class="prvyStlpecTvorca">
-                        2009
-                    </td>
-                    <td class="druhyStlpecTvorca">
-                        Spider-man - No way home
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="prvyStlpecTvorca">
-                        1999
-                    </td>
-                    <td class="druhyStlpecTvorca">
-                        Duna
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="prvyStlpecTvorca">
-                        2009
-                    </td>
-                    <td class="druhyStlpecTvorca">
-                        Spider-man
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="prvyStlpecTvorca">
-                        1999
-                    </td>
-                    <td class="druhyStlpecTvorca">
-                        Duna
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="prvyStlpecTvorca">
-                        2009
-                    </td>
-                    <td class="druhyStlpecTvorca">
-                        Spider-man
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="prvyStlpecTvorca">
-                        1999
-                    </td>
-                    <td class="druhyStlpecTvorca">
-                        Duna
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="prvyStlpecTvorca">
-                        2009
-                    </td>
-                    <td class="druhyStlpecTvorca">
-                        Spider-man
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="prvyStlpecTvorca">
-                        1999
-                    </td>
-                    <td class="druhyStlpecTvorca">
-                        Duna
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="prvyStlpecTvorca">
-                        2009
-                    </td>
-                    <td class="druhyStlpecTvorca">
-                        Spider-man
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="prvyStlpecTvorca">
-                        1999
-                    </td>
-                    <td class="druhyStlpecTvorca">
-                        Duna
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="prvyStlpecTvorca">
-                        2009
-                    </td>
-                    <td class="druhyStlpecTvorca">
-                        Spider-man
-                    </td>
-                </tr>
-
+                <?php } ?>
                 </tbody>
             </table>
             <!-- -->

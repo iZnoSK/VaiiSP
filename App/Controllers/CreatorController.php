@@ -7,6 +7,8 @@ use App\Core\Responses\Response;
 use App\DatabaseValidator;
 use App\FormValidator;
 use App\Models\Creator;
+use App\Models\MovieCreator;
+use App\Models\Movie;
 
 class CreatorController extends AControllerRedirect
 {
@@ -47,6 +49,7 @@ class CreatorController extends AControllerRedirect
             $this->redirect('creator', 'creatorForm', ['error' => 'Aspoň 1 z polí zostalo prázdne']);
         } else if(DatabaseValidator::checkIfCreatorExists($name, $surname, $dateOfBirth)) {
             $this->redirect('creator', 'creatorForm', ['error' => 'Tvorca sa už nachádza v databáze']);
+            //TODO check, či je role z tých 5 povolaní
         } else {
             if (isset($_FILES['fileOfCreator']) && FormValidator::isImage($_FILES['fileOfCreator']['tmp_name'])) {
                 if ($_FILES["fileOfCreator"]["error"] == UPLOAD_ERR_OK) {
@@ -74,10 +77,38 @@ class CreatorController extends AControllerRedirect
     {
         $creatorId = $this->request()->getValue('id');
         $creator = Creator::getOne($creatorId);
+
+        $movieIds = MovieCreator::getAll('creator_id = ?', [$creatorId]);
+        $movies = [];
+        foreach ($movieIds as $movieId) {
+            $movies[] = Movie::getOne($movieId->getId());
+        }
+
         return $this->html(
             [
                 'creator' => $creator,
+                'movies' => $movies
             ]
         );
+    }
+
+    public static function getAllActors() {     //TODO inak spravit?
+        return Creator::getAll("c_role = ?", ['Herec']);
+    }
+
+    public static function getAllDirectors() {     //TODO inak spravit?
+        return Creator::getAll("c_role = ?", ['Režisér']);
+    }
+
+    public static function getAllScreenwriters() {     //TODO inak spravit?
+        return Creator::getAll("c_role = ?", ['Scenárista']);
+    }
+
+    public static function getAllCameramen() {     //TODO inak spravit?
+        return Creator::getAll("c_role = ?", ['Kameraman']);
+    }
+
+    public static function getAllComposers() {     //TODO inak spravit?
+        return Creator::getAll("c_role = ?", ['Skladateľ']);
     }
 }

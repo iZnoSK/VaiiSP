@@ -47,56 +47,36 @@
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
                             <label for="director" class="form-label">Režisér</label>
                             <select id="director" class="form-select" name="directorOfMovie" required>
-                                <option value="">Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
+                                <?php foreach ($data['directors'] as $director) { ?>
+                                    <option value="<?= $director->getId() ?>"><?= $director->getFullName() ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                         <!-- scenárista -->
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
                             <label for="screenwriter" class="form-label">Scenárista</label>
                             <select id="screenwriter" class="form-select" name="screenwriterOfMovie" required>
-                                <option value="">Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
+                                <?php foreach ($data['screenwriters'] as $screenwriter) { ?>
+                                    <option value="<?= $screenwriter->getId() ?>"><?= $screenwriter->getFullName() ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                         <!-- kameraman -->
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                            <label for="cameraMan" class="form-label">Kameraman</label>
-                            <select id="cameraMan" class="form-select" name="cameraManOfMovie" required>
-                                <option value="">Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
+                            <label for="cameraman" class="form-label">Kameraman</label>
+                            <select id="cameraman" class="form-select" name="cameramanOfMovie" required>
+                                <?php foreach ($data['cameramen'] as $cameraman) { ?>
+                                    <option value="<?= $cameraman->getId() ?>"><?= $cameraman->getFullName() ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                         <!-- skladateľ -->
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                            <label for="musician" class="form-label">Skladateľ</label>
-                            <select id="musician" class="form-select" name="musicianOfMovie" required>
-                                <option value="">Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
+                            <label for="composer" class="form-label">Skladateľ</label>
+                            <select id="composer" class="form-select" name="composerOfMovie" required>
+                                <?php foreach ($data['composers'] as $composer) { ?>
+                                    <option value="<?= $composer->getId() ?>"><?= $composer->getFullName() ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                         <!-- žáner -->
@@ -111,15 +91,10 @@
                         <!-- herci -->
                         <div class="col-12 col-sm-6 mb-3">
                             <label for="actors" class="form-label">Herci</label>
-                            <select id="actors" class="form-select" name="actorsOfMovie" multiple required>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
-                                <option>Jožko Mrkvička</option>
+                            <select id="actors" class="form-select" name="actorsOfMovie[]" multiple required>
+                                <?php foreach ($data['actors'] as $actor) { ?>
+                                    <option value="<?= $actor->getId() ?>"><?= $actor->getFullName() ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                         <!-- popis filmu -->

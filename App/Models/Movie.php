@@ -4,6 +4,7 @@ namespace App\Models;
 use App\Models\Rating;
 use App\Models\Review;
 use App\Models\MovieGenre;
+use App\Models\MovieCreator;
 
 //TODO vyriesit problem s dlhym descriptionom - rozdelit ho nejako na uvodnu stranku (prvych 100 znakov alebo take cosi)
 class Movie extends \App\Core\Model
@@ -175,5 +176,66 @@ class Movie extends \App\Core\Model
         }
         $genres = implode(", ", $genreNames);
         return $genres;
+    }
+
+    public function getMovieCast()
+    {
+        return MovieCreator::getAll('id = ?', [$this->id]);
+    }
+
+    public function getDirector()
+    {
+        foreach ($this->getMovieCast() as $cast) {
+            $creator = Creator::getOne($cast->getCreatorId());
+            if($creator->getRole() == "Režisér") {
+                return $creator;
+            }
+        }
+        return false;
+    }
+
+    public function getScreenwriter()
+    {
+        foreach ($this->getMovieCast() as $cast) {
+            $creator = Creator::getOne($cast->getCreatorId());
+            if($creator->getRole() == "Scenárista") {
+                return $creator;
+            }
+        }
+        return false;
+    }
+
+    public function getCameraman()
+    {
+        foreach ($this->getMovieCast() as $cast) {
+            $creator = Creator::getOne($cast->getCreatorId());
+            if($creator->getRole() == "Kameraman") {
+                return $creator;
+            }
+        }
+        return false;
+    }
+
+    public function getComposer()
+    {
+        foreach ($this->getMovieCast() as $cast) {
+            $creator = Creator::getOne($cast->getCreatorId());
+            if($creator->getRole() == "Skladateľ") {
+                return $creator;
+            }
+        }
+        return false;
+    }
+
+    public function getActors()
+    {
+        $actors = [];
+        foreach ($this->getMovieCast() as $cast) {
+            $creator = Creator::getOne($cast->getCreatorId());
+            if($creator->getRole() == "Herec") {
+                $actors[] = $creator;
+            }
+        }
+        return $actors;
     }
 }

@@ -148,4 +148,9 @@ class Creator extends \App\Core\Model
     {
         $this->c_biography = $c_biography;
     }
+
+    public function getFullName(): ?string
+    {
+        return ($this->c_name . " " . $this->c_surname);
+    }
 }

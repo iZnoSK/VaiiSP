@@ -20,11 +20,15 @@
                         <strong>Krajina pôvodu: </strong><?= $data['movie']->getOrigin()?><br>
                         <strong>Dĺžka trvania: </strong><?= $data['movie']->getLength()?><br>
                         <strong>Žánre: </strong><?= $data['movie']->getGenresString() ?><br>
-                        <strong>Réžia: </strong> Denis Villeneuve<br>
-                        <strong>Scenár: </strong> Eric Roth, Denis Villeneuve, Jon Spaihts<br>
-                        <strong>Kamera: </strong> Greig Fraser<br>
-                        <strong>Hudba: </strong> Hans Zimmer<br>
-                        <strong>Hrajú: </strong> Timothée Chalamet, Rebecca Ferguson, Oscar Isaac, Jason Momoa,...<br>
+                        <strong>Réžia: </strong><a href="?c=creator&a=getProfile&id=<?= $data['director']->getId() ?>"><?= $data['director']->getFullname() ?></a><br>
+                        <strong>Scenár: </strong><a href="?c=creator&a=getProfile&id=<?= $data['screenwriter']->getId() ?>"><?= $data['screenwriter']->getFullname() ?></a><br>
+                        <strong>Kamera: </strong><a href="?c=creator&a=getProfile&id=<?= $data['cameraman']->getId() ?>"><?= $data['cameraman']->getFullname() ?></a><br>
+                        <strong>Hudba: </strong><a href="?c=creator&a=getProfile&id=<?= $data['composer']->getId() ?>"><?= $data['composer']->getFullname() ?></a><br>
+                        <strong>Hrajú: </strong>
+                        <?php foreach ($data['actors'] as $actor) { ?>
+                            <a href="?c=creator&a=getProfile&id=<?= $actor->getId() ?>"><?= $actor->getFullname() ?></a>
+                        <?php } ?>
+                        <br>
                     </p>
                 </div>
                 <!-- -->

@@ -7,8 +7,10 @@ use App\Core\DB\Connection;
 use App\DatabaseValidator;
 use App\FormValidator;
 use App\Core\Responses\Response;
+use App\Models\Creator;
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\MovieCreator;
 use App\Models\MovieGenre;
 use App\Models\Pouzivatel;
 use App\Models\Rating;
@@ -32,11 +34,21 @@ class MovieController extends AControllerRedirect
             $this->redirect('home');
         }
         $genres = GenreController::getAllGenres();
+        $actors = CreatorController::getAllActors();
+        $directors = CreatorController::getAllDirectors();
+        $screenwriters = CreatorController::getAllScreenwriters();
+        $cameramen = CreatorController::getAllCameramen();
+        $composers = CreatorController::getAllComposers();
         //TODO možno tu pridať id filmu, ak ide o úpravu a poslať ten film z db
         return $this->html(
             [
                 'error' => $this->request()->getValue('error'),
-                'genres' => $genres
+                'genres' => $genres,
+                'actors' => $actors,
+                'directors' => $directors,
+                'screenwriters' => $screenwriters,
+                'cameramen' => $cameramen,
+                'composers' => $composers
             ]
         );
     }
@@ -54,6 +66,13 @@ class MovieController extends AControllerRedirect
         $genreIds = $this->request()->getValue('genresOfMovie');
         $description = trim($this->request()->getValue('descriptionOfMovie'));
 
+        $actorIds = $this->request()->getValue('actorsOfMovie');
+        $directorId = $this->request()->getValue('directorOfMovie');
+        $screenwriterId = $this->request()->getValue('screenwriterOfMovie');
+        $cameramanId = $this->request()->getValue('cameramanOfMovie');
+        $composerId = $this->request()->getValue('composerOfMovie');
+
+        //TODO check, ci nie su prazdne selectboxy
         if(FormValidator::emptyInputMovie($title, $release, $length, $origin, $description)) {
             $this->redirect('movie', 'movieForm', ['error' => 'Aspoň 1 z polí zostalo prázdne']);
         } else if(FormValidator::invalidYear($release)) {
@@ -91,6 +110,34 @@ class MovieController extends AControllerRedirect
                 $movieGenre->add();
             }
 
+            foreach ($actorIds as $actorId) {
+                $movieCreator = new MovieCreator();
+                $movieCreator->setId($movie->getId());
+                $movieCreator->setCreatorId($actorId);
+                $movieCreator->add();
+            }
+
+            //TODO asi metóda
+            $movieCreator = new MovieCreator();
+            $movieCreator->setId($movie->getId());
+            $movieCreator->setCreatorId($directorId);
+            $movieCreator->add();
+
+            $movieCreator = new MovieCreator();
+            $movieCreator->setId($movie->getId());
+            $movieCreator->setCreatorId($screenwriterId);
+            $movieCreator->add();
+
+            $movieCreator = new MovieCreator();
+            $movieCreator->setId($movie->getId());
+            $movieCreator->setCreatorId($cameramanId);
+            $movieCreator->add();
+
+            $movieCreator = new MovieCreator();
+            $movieCreator->setId($movie->getId());
+            $movieCreator->setCreatorId($composerId);
+            $movieCreator->add();
+
             $this->redirect('home');
         }
     }
@@ -112,6 +159,9 @@ class MovieController extends AControllerRedirect
             if($movieGenre = $movie->getGenres()[0]) {
                 $movieGenre->delete();
             }
+            if($movieCast = $movie->getMovieCast()[0]) {
+                $movieCast->delete();
+            }
             $movie->delete();
         }
         //presmerovat vystup na home
@@ -126,8 +176,12 @@ class MovieController extends AControllerRedirect
             $this->redirect('home');
         }
         $movie = MOVIE::getOne($this->request()->getValue('id'));
-
         $genres = GenreController::getAllGenres();
+        $actors = CreatorController::getAllActors();
+        $directors = CreatorController::getAllDirectors();
+        $screenwriters = CreatorController::getAllScreenwriters();
+        $cameramen = CreatorController::getAllCameramen();
+        $composers = CreatorController::getAllComposers();
 
         //TODO dať takéto veci do Movie!!!
         $genresOfMovie = $movie->getGenres();
@@ -136,12 +190,32 @@ class MovieController extends AControllerRedirect
             $genreIds[] = $genre->getGenreId();
         }
 
+        $PreviousDirector = $movie->getDirector();
+        $PreviousScreenwriter = $movie->getScreenwriter();
+        $PreviousCameraman = $movie->getCameraman();
+        $PreviousComposer = $movie->getComposer();
+        $PreviousActors = $movie->getActors();
+        $PreviousActorsIds = [];
+        foreach ($PreviousActors as $previousActor) {
+            $PreviousActorsIds[] = $previousActor->getId();
+        }
+
         return $this->html(
             [
+                'error' => $this->request()->getValue('error'),
                 'movie' => $movie,
                 'genres' => $genres,
                 'genresIds' => $genreIds,
-                'error' => $this->request()->getValue('error')
+                'actors' => $actors,
+                'directors' => $directors,
+                'screenwriters' => $screenwriters,
+                'cameramen' => $cameramen,
+                'composers' => $composers,
+                'PreviousDirectorId' => $PreviousDirector->getId(),
+                'PreviousScreenwriterId' => $PreviousScreenwriter->getId(),
+                'PreviousCameramanId' => $PreviousCameraman->getId(),
+                'PreviousComposerId' => $PreviousComposer->getId(),
+                'PreviousActorsIds' => $PreviousActorsIds
             ]
         );
     }
@@ -162,6 +236,12 @@ class MovieController extends AControllerRedirect
         $origin = trim($this->request()->getValue('originOfMovie'));
         $genreIds = $this->request()->getValue('genresOfMovie');
         $description = trim($this->request()->getValue('descriptionOfMovie'));
+
+        $actorIds = $this->request()->getValue('actorsOfMovie');
+        $directorId = $this->request()->getValue('directorOfMovie');
+        $screenwriterId = $this->request()->getValue('screenwriterOfMovie');
+        $cameramanId = $this->request()->getValue('cameramanOfMovie');
+        $composerId = $this->request()->getValue('composerOfMovie');
 
         if(FormValidator::emptyInputMovie($title, $release, $length, $origin, $description)) {
             $this->redirect('movie', 'editMovieForm',['id' => $id ,'error' => 'Aspoň 1 z polí zostalo prázdne']);
@@ -187,6 +267,37 @@ class MovieController extends AControllerRedirect
                 $movieGenre->add();
             }
 
+            $movieCast = $movie->getMovieCast();
+            $movieCast[0]->delete();
+
+            foreach ($actorIds as $actorId) {
+                $movieCreator = new MovieCreator();
+                $movieCreator->setId($movie->getId());
+                $movieCreator->setCreatorId($actorId);
+                $movieCreator->add();
+            }
+
+            //TODO asi metóda
+            $movieCreator = new MovieCreator();
+            $movieCreator->setId($movie->getId());
+            $movieCreator->setCreatorId($directorId);
+            $movieCreator->add();
+
+            $movieCreator = new MovieCreator();
+            $movieCreator->setId($movie->getId());
+            $movieCreator->setCreatorId($screenwriterId);
+            $movieCreator->add();
+
+            $movieCreator = new MovieCreator();
+            $movieCreator->setId($movie->getId());
+            $movieCreator->setCreatorId($cameramanId);
+            $movieCreator->add();
+
+            $movieCreator = new MovieCreator();
+            $movieCreator->setId($movie->getId());
+            $movieCreator->setCreatorId($composerId);
+            $movieCreator->add();
+
             $this->redirect('home');
         }
     }
@@ -206,13 +317,41 @@ class MovieController extends AControllerRedirect
             $ratingUsers[] = Pouzivatel::getOne($rating->getUserId());
         }
 
-        $hasRating = Rating::getOneByUniqueColumn('user_id', Auth::getId());
-        $hasReview = Review::getOneByUniqueColumn('user_id', Auth::getId());
+/*        $movieCast = [];
+        foreach ($movie->getMovieCast() as $cast) {
+            $movieCast[] = Creator::getOne($cast->getCreatorId());
+        }*/
+        $director = $movie->getDirector();
+        $screenwriter = $movie->getScreenwriter();
+        $cameraman = $movie->getCameraman();
+        $composer = $movie->getComposer();
+        $actors = $movie->getActors();
+
+        $hasRating = false;
+        $ratings = Rating::getAll('user_id = ?', [Auth::getId()]);
+        foreach ($ratings as $rating) {
+            if($rating->getId() == $movieId) {
+                $hasRating = true;
+            }
+        }
+
+        $hasReview = false;
+        $reviews = Review::getAll('user_id = ?', [Auth::getId()]);
+        foreach ($reviews as $review) {
+            if($review->getId() == $movieId) {
+                $hasReview = true;
+            }
+        }
         return $this->html(
             [
                 'movie' => $movie,
                 'reviewUsers' => $reviewUsers,
                 'ratingUsers' => $ratingUsers,
+                'director' => $director,
+                'screenwriter' => $screenwriter,
+                'cameraman' => $cameraman,
+                'composer' => $composer,
+                'actors' => $actors,
                 'hasRating' => $hasRating,
                 'hasReview' => $hasReview
             ]
