@@ -103,16 +103,71 @@ class Controller {
     }
 }
 
+class Validation {
+    checkInput() {
+        let login = document.getElementById("login");
+        let pwd = document.getElementById("pwd");
+
+        let loginValue = login.value.trim();
+        let passwordValue = pwd.value.trim();
+        //check login
+        if(loginValue === "") {
+            this.onError(login,"Používateľské meno nemôže byť prázdne");
+        } else if(!this.isValidLogin(loginValue)) {
+            this.onError(login,"Používateľské meno nie je v správnom tvare");
+        } else {
+            this.onSuccess(login);
+        }
+        //check password
+        if(passwordValue === "") {
+            this.onError(pwd,"Heslo nemôže byť prázdne");
+        } else {
+            this.onSuccess(pwd);
+        }
+        //check form
+        this.checkForm();
+    }
+
+    onSuccess(input) {
+        let formControl = input.parentElement;
+        let messageEle = formControl.querySelector("small");
+        messageEle.style.visibility="hidden";
+        formControl.classList.remove("error");
+        formControl.classList.add("success");
+    }
+
+    onError(input,message) {
+        let formControl = input.parentElement;
+        let messageEle = formControl.querySelector("small");
+        messageEle.style.visibility = "visible";
+        messageEle.innerText = message;
+        formControl.classList.add("error");
+        formControl.classList.remove("success");
+    }
+
+    isValidLogin(login){
+        return login.match(/^[a-zA-Z0-9]*$/);
+    }
+
+    checkForm(){
+        if (document.querySelectorAll(".error").length === 0) {
+            document.getElementById("submit").disabled = false;
+        } else {
+            document.getElementById("submit").disabled = true;
+        }
+    }
+}
+
 window.onload = async function () {
+    if(window.location.href === "http://localhost/Semestralka/?c=auth&a=loginForm") {
+        this.validation = new Validation();
+        this.validation.checkInput();
+    }
+
     this.controller = new Controller();
     await this.controller.reload();
-/*    document.getElementById("sendRating").onclick = () => {
-        this.controller.addRating();
-    }
-    document.getElementById("sendReview").onclick = () => {
-        this.controller.addReview();
-    }*/
-    buttons = document.getElementsByTagName('button');
+
+    let buttons = document.getElementsByTagName('button');
     for (let button of buttons) {
         if(button === document.getElementById('sendRating')) {
             document.getElementById("sendRating").onclick = () => {
@@ -123,7 +178,13 @@ window.onload = async function () {
                 this.controller.addReview();
             }
         }
-
     }
-    //alert("The URL of this page is: " + window.location.href);  //   http://localhost/Semestralka/?c=movie&a=getProfile&id=24
+    //;  //   http://localhost/Semestralka/?c=movie&a=getProfile&id=24
+}
+
+oninput  = function () {
+    if(window.location.href === "http://localhost/Semestralka/?c=auth&a=loginForm") {
+        this.validation = new Validation();
+        this.validation.checkInput();
+    }
 }
