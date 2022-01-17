@@ -206,3 +206,17 @@ h5 {
 a {
     color: black;
 }
+
+/* tvorcovia */
+.druhyStlpecTvorcovia {
+    width: 60%;
+}
+
+.prvyStlpecTvorcovia {
+    width: 40%;
+}
+
+.obrazokTvorcovia {
+    height: 7rem;
+    width: 5rem
+}

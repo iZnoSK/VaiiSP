@@ -18,7 +18,21 @@ class CreatorController extends AControllerRedirect
      */
     public function index()
     {
-        $this->redirect('home');
+        $actors = self::getAllActors();
+        $directors = self::getAllDirectors();
+        $screenwriters = self::getAllScreenwriters();
+        $cameramen = self::getAllCameramen();
+        $composers = self::getAllComposers();
+
+        return $this->html(
+            [
+                'actors' => $actors,
+                'directors' => $directors,
+                'screenwriters' => $screenwriters,
+                'cameramen' => $cameramen,
+                'composers' => $composers
+            ]
+        );
     }
 
     // v root.layout.view.php v navbare na tlačítku -> c=creator & a=creatorForm

@@ -118,7 +118,7 @@ class UserController extends AControllerRedirect
             $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);   //TODO asi presunut hashovanie do Auth?
             $user->setPassword($hashedPassword);
             $user->save();
-            $user->redirect('user');
+            $this->redirect('user');
         }
     }
 }

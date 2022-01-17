@@ -26,25 +26,26 @@
         <ul class="nav justify-content-start">
             <!-- Záložka filmy -->
             <li class="nav-item">
-                <a class="nav-link" href="?c=home">Domov</a>
+                <a class="nav-link" href="?c=home">Filmy</a>
             </li>
-            <!-- zobrazenie záložiek Pridanie filmu a Pridanie tvorcu, ak som prihlásený -->
-            <?php if(\App\Auth::isLogged()) { ?>
+            <!-- Záložka tvorcovia -->
             <li class="nav-item">
-                <a class="nav-link" href="?c=movie&a=movieForm">Pridať film</a>
+                <a class="nav-link" href="?c=creator">Tvorcovia</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="?c=creator&a=creatorForm">Pridať tvorcu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="?c=genre&a=genreForm">Pridať žáner</a>
-            </li>
-            <?php } ?>
         </ul>
         <!-- záložky na konci -->
         <ul class="nav justify-content-end ">
-            <!-- zobrazenie záložky logout, ak som prihlásený -->
+            <!-- zobrazenie záložiek Pridanie filmu a Pridanie tvorcu, logout, ak som prihlásený -->
             <?php if(\App\Auth::isLogged()) { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="?c=movie&a=movieForm">Pridať film</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?c=creator&a=creatorForm">Pridať tvorcu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?c=genre&a=genreForm">Pridať žáner</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?c=user"><?php echo \App\Auth::getName() ?></a>
                 </li>
