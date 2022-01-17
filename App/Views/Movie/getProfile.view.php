@@ -19,7 +19,7 @@
                     <p>
                         <strong>Rok vydania: </strong><?= $data['movie']->getRelease()?><br>
                         <strong>Krajina pôvodu: </strong><?= $data['movie']->getOrigin()?><br>
-                        <strong>Dĺžka trvania: </strong><?= $data['movie']->getLength()?><br>
+                        <strong>Dĺžka trvania: </strong><?= $data['movie']->getLength()?> minút<br>
                         <strong>Žánre: </strong><?= $data['movie']->getGenresString() ?><br>
                         <strong>Réžia: </strong><a href="?c=creator&a=getProfile&id=<?= $data['director']->getId() ?>"><?= $data['director']->getFullname() ?></a><br>
                         <strong>Scenár: </strong><a href="?c=creator&a=getProfile&id=<?= $data['screenwriter']->getId() ?>"><?= $data['screenwriter']->getFullname() ?></a><br>
