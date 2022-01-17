@@ -75,7 +75,7 @@ h5 {
     color: white;
 }
 
-.nav-link:hover, .nav-link:focus {
+.nav-link:hover, .nav-link:focus, a:hover {
     color:#ffc107 !important;
 }
 
@@ -202,3 +202,7 @@ h5 {
 }
 
 /*  */
+
+a {
+    color: black;
+}

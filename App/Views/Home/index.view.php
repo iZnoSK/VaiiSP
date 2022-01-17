@@ -6,7 +6,7 @@
         <div class="d-flex justify-content-center flex-wrap">
             <!-- KARTY -->
             <?php foreach ($data['movies'] as $movie) { ?>
-            <div class="card bg-light">
+            <div class="card bg-light">                                     <!-- TODO maybe text-center -->
                 <!-- header karty - obrázok -->
                 <img src="public/files/movieImages/<?= $movie->getImg() ?>" class="card-img-top" alt="poster">
                 <!-- telo karty - text -->

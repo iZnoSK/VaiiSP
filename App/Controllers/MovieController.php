@@ -389,8 +389,9 @@ class MovieController extends AControllerRedirect
             $review->setUserLogin($userLogin);
             $review->setText($text);
             $review->add();
+            return $this->json("success");
         }
-        $this->redirect('movie', 'getProfile', ['id' => $movieId]);
+        return $this->json("error");
     }
 
     public function addRating()
@@ -409,7 +410,9 @@ class MovieController extends AControllerRedirect
             $rating->setUserLogin($userLogin);
             $rating->setPercentage($percentage);
             $rating->add();
+            //TODO prepocitaj final rating, aby sa updateol
+            return $this->json("success");
         }
-        $this->redirect('movie', 'getProfile', ['id' => $movieId]);
+        return $this->json("error");
     }
 }

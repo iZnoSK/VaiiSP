@@ -61,23 +61,20 @@
                     <hr>
                     <?php if(\App\Auth::isLogged() && !$data['hasReview']) { ?>
                     <!-- formulár na novú recenziu -->
-                    <form method="post" action="?c=movie&a=addReview&movieId=<?= $data['movie']->getId() ?>">
-                        <div class="form-control bg-light mb-3">
-                            <div>
-                                <!-- text recenzie -->
-                                <div class="col-12 mb-3">
-                                    <label for="review" class="form-label"><strong>Pridať recenziu</strong></label>
-                                    <textarea id="review" class="form-control" name="reviewOfMovie" rows="4" required></textarea>
-                                </div>
-                                <!-- tlačítko -->
-                                <div class="mb-3">
-                                    <button id="submitReview" class="btn btn-primary" type="submit">Pridať</button>
-                                </div>
-                                <!--  -->
+                        <div id="reviewForm">
+                            <!-- text recenzie -->
+                            <div class="col-12 mb-3">
+                                <label for="review" class="form-label"><strong>Pridať recenziu</strong></label>
+                                <textarea id="review" class="form-control" name="reviewOfMovie" rows="4" required></textarea>
                             </div>
+                            <!-- tlačítko -->
+                            <div class="mb-3">
+                                <button id="sendReview" class="btn btn-primary">Pridať</button>
+                            </div>
+                            <hr>
+                            <!--  -->
                         </div>
-                    </form>
-                    <hr>
+                    <!--  -->
                     <?php } ?>
                     <!-- všetky recenzie -->
                     <div id="reviews">
@@ -97,22 +94,20 @@
                     <h3><strong><?= $data['movie']->getFinalRating()?>%</strong></h3>
                 </header>
                 <?php if(\App\Auth::isLogged() && !$data['hasRating']) { ?>
-                <!-- Formulár na ohodnotenie filnu -->
-                <form method="post" action="?c=movie&a=addRating&movieId=<?= $data['movie']->getId() ?>" class="bg-light">
-                    <div class="form-control bg-light mb-2 mt-2">
-                        <div>
-                            <!-- dĺžka filmu -->
-                            <div class="col-12 mb-3">
-                                <label for="rating" class="form-label"><strong>Pridať</strong></label>
-                                <input id="rating" class="form-control" name="ratingOfMovie" type="number" min="1" max="100" required>
-                            </div>
-                            <!-- tlačítko -->
-                            <div class="mb-3">
-                                <button id="submitRating" class="btn btn-primary" type="submit">Pridať hodnotenie</button>
-                            </div>
-                            <!--  -->
-                        </div>
+                <!-- Formulár na ohodnotenie filmu -->
+                <div class="bg-light pt-2" id="ratingForm">
+                    <!-- text recenzie -->
+                    <div class="col-12 mb-3">
+                        <label for="rating" class="form-label"><strong>Pridať hodnotenie</strong></label>
+                        <input id="rating" class="form-control" name="ratingOfMovie" type="number" min="1" max="100" required>
                     </div>
+                    <!-- tlačítko -->
+                    <div class="mb-3">
+                        <button id="sendRating" class="btn btn-primary">Pridať</button>
+                    </div>
+                    <hr>
+                    <!--  -->
+                </div>
                 <?php } ?>
                 </form>
                 <!-- ostatne hodnotenia -->
@@ -132,7 +127,9 @@
                         </thead>
                         <!-- Telo tabuľky -->
                         <tbody id="ratings">
+
                         </tbody>
+                        <!-- -->
                     </table>
                     <!-- -->
                 </div>

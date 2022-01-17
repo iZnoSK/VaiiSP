@@ -36,6 +36,8 @@ class UserController extends AControllerRedirect
 
     public function getProfile()
     {
+        //TODO ked nemas ziadny rating ani review, tak to funguje - ked mas obe, tak to funguje
+        //TODO keď nemáš žiadny rating alebo review, tak nie - OPRAVIT AJ VO VIEW
         $userId = $this->request()->getValue('id');
         $user = Pouzivatel::getOne($userId);
         $movies = [];
