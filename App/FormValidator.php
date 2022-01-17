@@ -46,23 +46,6 @@ class FormValidator
         return false;
     }
 
-    //TODO pozriet ako sa robi variabilny pocet premennych, poslat to a v cykle skontrolovat - univerzalne pre vsetky formulare?
-    public static function emptyInputSignUp($login, $email, $password, $repeatedPassword) {
-        if(empty($login) || empty($email) || empty($password) || empty($repeatedPassword)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static function emptyInputLogin($login,$password) {
-        if(empty($login) || empty($password)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public static function emptyInputMovie($title, $release, $length, $origin, $description) {
         if(empty($title) || empty($release) || empty($length) || empty($origin) || empty($description)) {
             return true;
@@ -73,22 +56,6 @@ class FormValidator
 
     public static function emptyInputReview($review) {
         if(empty($review)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static function emptyInputGenre($genre) {
-        if(empty($genre)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static function emptyInputCreator($name, $surname, $dateOfBirth, $placeOfBirth, $role, $biography) {
-        if(empty($name) || empty($surname) || empty($dateOfBirth) || empty($placeOfBirth) || empty($role) || empty($biography)) {
             return true;
         } else {
             return false;
@@ -108,6 +75,14 @@ class FormValidator
 
     public static function invalidEmail($email) {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function invalidRole($role) {
+        if(!in_array($role, ["Herec", "Režisér", "Skladateľ", "Kameraman", "Scenárista"])) {
             return true;
         } else {
             return false;

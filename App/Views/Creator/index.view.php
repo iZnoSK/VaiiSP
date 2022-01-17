@@ -14,20 +14,22 @@
                 </thead>
                 <!-- Telo tabuľky -->
                 <tbody>
+                <?php /** @var \App\Models\Creator $actor */ ?>
                 <?php foreach ($data['actors'] as $actor) { ?>
-                <tr>
-                    <td class="prvyStlpecTvorcovia">
-                        <img src="public/files/creatorImages/<?= $actor->getImg() ?>" class="img-thumbnail obrazokTvorcovia">
-                    </td>
-                    <td class="druhyStlpecTvorcovia">
-                        <p>
-                            <br>
-                            <a href="?c=creator&a=getProfile&id=<?= $actor->getId() ?>"><?= $actor->getFullName() ?></a>
-                            <br>
-                            <?= $actor->getDateOfBirth() ?>
-                        </p>
-                    </td>
-                </tr>
+                    <tr>
+                        <td class="prvyStlpecTvorcovia">
+                            <img src="public/files/creatorImages/<?= $actor->getImg() ?>"
+                                 class="img-thumbnail obrazokTvorcovia" alt="...">
+                        </td>
+                        <td class="druhyStlpecTvorcovia">
+                            <p>
+                                <br>
+                                <a href="?c=creator&a=getProfile&id=<?= $actor->getId() ?>"><?= $actor->getFullName() ?></a>
+                                <br>
+                                <?= $actor->getDateOfBirth() ?>
+                            </p>
+                        </td>
+                    </tr>
                 <?php } ?>
                 </tbody>
                 <!-- -->
@@ -46,10 +48,12 @@
                 </thead>
                 <!-- Telo tabuľky -->
                 <tbody>
+                <?php /** @var \App\Models\Creator $director */ ?>
                 <?php foreach ($data['directors'] as $director) { ?>
                     <tr>
                         <td class="prvyStlpecTvorcovia">
-                            <img src="public/files/creatorImages/<?= $director->getImg() ?>" class="img-thumbnail obrazokTvorcovia"">
+                            <img src="public/files/creatorImages/<?= $director->getImg() ?>"
+                                 class="img-thumbnail obrazokTvorcovia" alt="...">
                         </td>
                         <td class="druhyStlpecTvorcovia">
                             <p>
@@ -78,10 +82,12 @@
                 </thead>
                 <!-- Telo tabuľky -->
                 <tbody>
+                <?php /** @var \App\Models\Creator $screenwriter */ ?>
                 <?php foreach ($data['screenwriters'] as $screenwriter) { ?>
                     <tr>
                         <td class="prvyStlpecTvorcovia">
-                            <img src="public/files/creatorImages/<?= $screenwriter->getImg() ?>" class="img-thumbnail obrazokTvorcovia">
+                            <img src="public/files/creatorImages/<?= $screenwriter->getImg() ?>"
+                                 class="img-thumbnail obrazokTvorcovia" alt="...">
                         </td>
                         <td class="druhyStlpecTvorcovia">
                             <p>
@@ -110,10 +116,12 @@
                 </thead>
                 <!-- Telo tabuľky -->
                 <tbody>
+                <?php /** @var \App\Models\Creator $cameraman */ ?>
                 <?php foreach ($data['cameramen'] as $cameraman) { ?>
                     <tr>
                         <td class="prvyStlpecTvorcovia">
-                            <img src="public/files/creatorImages/<?= $cameraman->getImg() ?>" class="img-thumbnail obrazokTvorcovia">
+                            <img src="public/files/creatorImages/<?= $cameraman->getImg() ?>"
+                                 class="img-thumbnail obrazokTvorcovia" alt="...">
                         </td>
                         <td class="druhyStlpecTvorcovia">
                             <p>
@@ -142,10 +150,12 @@
                 </thead>
                 <!-- Telo tabuľky -->
                 <tbody>
+                <?php /** @var \App\Models\Creator $composer */ ?>
                 <?php foreach ($data['composers'] as $composer) { ?>
                     <tr>
                         <td class="prvyStlpecTvorcovia">
-                            <img src="public/files/creatorImages/<?= $composer->getImg() ?>" class="img-thumbnail obrazokTvorcovia">
+                            <img src="public/files/creatorImages/<?= $composer->getImg() ?>"
+                                 class="img-thumbnail obrazokTvorcovia" alt="...">
                         </td>
                         <td class="druhyStlpecTvorcovia">
                             <p>
