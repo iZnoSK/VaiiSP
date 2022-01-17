@@ -96,10 +96,6 @@ h5 {
 /* FILM */
 /* FILM - atribúty filmu */
 
-.hlavnyObsahFilmu {
-
-}
-
 .hlavickaFilmu {
     background-color: rgb(204, 204, 204);
     border-top-left-radius: 0.25rem;
@@ -126,10 +122,6 @@ h5 {
     padding-top: 0.75rem;
 }
 
-.teloObsahuFilmu {
-
-}
-
 /* FILM - recenzie */
 
 .recenzieFilmu {
@@ -145,9 +137,6 @@ h5 {
 }
 
 /* FILM - hodnotenie */
-.hodnotenieFilmu {
-
-}
 
 .hlavickaHodnoteniaFilmu {
     background-color: rgb(204, 0, 0);
@@ -158,7 +147,6 @@ h5 {
 }
 
 .ostatneHodnotenia {
-    /*background-color: rgb(204, 204, 204);*/
     border-bottom-left-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
 }

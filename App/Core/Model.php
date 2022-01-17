@@ -110,32 +110,6 @@ abstract class Model implements \JsonSerializable
         }
     }
 
-    static public function getOneByUniqueColumn($uniqueColumn, $value)
-    {
-        if ($value == null || $uniqueColumn == null)
-            return false;
-
-        self::connect();
-        try {
-            $sql = "SELECT * FROM " . self::getTableName() . " WHERE " . $uniqueColumn . "=?";
-            $stmt = self::$connection->prepare($sql);
-            $stmt->execute([$value]);
-            $model = $stmt->fetch();
-            if ($model) {
-                $data = array_fill_keys(self::getDbColumns(), null);
-                $tmpModel = new static();
-                foreach ($data as $key => $item) {
-                    $tmpModel->$key = $model[$key];
-                }
-                return $tmpModel;
-            } else {
-                return false;
-            }
-        } catch (PDOException $e) {
-            throw new \Exception('Query failed: ' . $e->getMessage());
-        }
-    }
-
     /**
      * Saves the current model to DB (if model id is set, updates it, else creates a new model)
      * @return mixed
@@ -170,7 +144,7 @@ abstract class Model implements \JsonSerializable
     }
 
     /**
-     * Saves the current model to DB (if model id is set, updates it, else creates a new model)
+     * Creates a new model
      * @return mixed
      */
     public function add()
@@ -214,25 +188,6 @@ abstract class Model implements \JsonSerializable
             throw new \Exception('Query failed: ' . $e->getMessage());
         }
     }
-
-/*    public function deleteByPrimaryKey($primaryKey)
-    {
-        if ($primaryKey == null) {
-            return;
-        }
-        self::connect();
-        try {
-            $sql = "DELETE FROM " . self::getTableName() . " WHERE ".$primaryKey."=?";
-            $stmt = self::$connection->prepare($sql);
-            $stmt->execute([$this->{self::$pkColumn}]);
-            if ($stmt->rowCount() == 0) {
-                throw new \Exception('Model not found!');
-            }
-        } catch (PDOException $e) {
-            throw new \Exception('Query failed: ' . $e->getMessage());
-        }
-    }*/
-
 
     /**
      * Returns the connection to database

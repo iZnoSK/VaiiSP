@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Auth;
-use App\Core\Responses\Response;
+use App\Core\Responses\ViewResponse;
 use App\DatabaseValidator;
 use App\FormValidator;
 use App\Models\Genre;
 
+/**
+ * Trieda reprezentuje kontrolér žánru
+ * @package App\Controllers
+ */
 class GenreController extends AControllerRedirect
 {
-
     /**
      * @inheritDoc
      */
@@ -19,9 +22,14 @@ class GenreController extends AControllerRedirect
         $this->redirect('home');
     }
 
-    // v root.layout.view.php v navbare na tlačítku -> c=genre & a=genreForm
+
+    /**
+     * Metóda dovolí prihlásenej osobe prejsť na formulár pridanie žánru
+     * @return ViewResponse
+     */
     public function genreForm()
     {
+        // v root.layout.view.php -> c=genre & a=genreForm
         if (!Auth::isLogged()) {
             $this->redirect('home');
         }
@@ -32,13 +40,22 @@ class GenreController extends AControllerRedirect
         );
     }
 
-    // v genreForm.view.php vo formulári -> c=genre & a=addGenre
+
+    /**
+     * Metóda dovolí prihlásenej osobe pridať žáner, ktorý bol poslaný pomocou formuláru
+     * @throws \Exception
+     */
     public function addGenre()
     {
-        //TODO URL check?
+        // v genreForm.view.php -> c=genre & a=addGenre
+        if (!Auth::isLogged()) {
+            $this->redirect('home');
+        }
         $genreName = trim($this->request()->getValue('genreName'));
-        if(FormValidator::emptyInputGenre($genreName)) {
+        if(FormValidator::emptyInput([$genreName])) {
             $this->redirect('genre', 'genreForm', ['error' => 'Aspoň 1 z polí zostalo prázdne']);
+        } else if(FormValidator::inputHasTooManyChars(30, $genreName)) {
+            $this->redirect('genre', 'genreForm', ['error' => 'Názov žánru je príliš dlhý']);
         } else if(DatabaseValidator::checkIfGenreExists($genreName)) {
             $this->redirect('genre', 'genreForm', ['error' => 'Žáner sa už nachádza v databáze']);
         } else {
@@ -49,7 +66,11 @@ class GenreController extends AControllerRedirect
         }
     }
 
-    public static function getAllGenres() {     //TODO inak spravit?
+    /** Metóda získa všetky žánre z databázy
+     * @return Genre[]
+     * @throws \Exception
+     */
+    public static function getAllGenres() {
         return Genre::getAll();
     }
 }

@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Auth;
 use App\DatabaseValidator;
 use App\FormValidator;
-use App\Models\Pouzivatel;
+use App\Models\User;
 
 // TODO rozdelit na 2 controllery? signUp a login
 class AuthController extends AControllerRedirect
@@ -104,7 +104,7 @@ class AuthController extends AControllerRedirect
                 exit;
             }
             //TODO sql injection
-            $newUser = new Pouzivatel();
+            $newUser = new User();
             $newUser->setLogin($login);
             $newUser->setEmail($email);
             $newUser->setImg($nameOfFile);

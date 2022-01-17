@@ -12,7 +12,7 @@ use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\MovieCreator;
 use App\Models\MovieGenre;
-use App\Models\Pouzivatel;
+use App\Models\User;
 use App\Models\Rating;
 use App\Models\Review;
 
@@ -323,12 +323,12 @@ class MovieController extends AControllerRedirect
 
         $reviewUsers = [];
         foreach ($movie->getReviews() as $review) {
-            $reviewUsers[] = Pouzivatel::getOne($review->getUserId());
+            $reviewUsers[] = User::getOne($review->getUserId());
         }
 
         $ratingUsers = [];
         foreach ($movie->getRatings() as $rating) {
-            $ratingUsers[] = Pouzivatel::getOne($rating->getUserId());
+            $ratingUsers[] = User::getOne($rating->getUserId());
         }
 
 /*        $movieCast = [];

@@ -17,7 +17,7 @@
     <script src="public/script.js"></script>
 </head>
 
-<body
+<body>
 <!-- hlavný navbar -->
 <!-- TODO responzívne schovať -->
 <nav class="navbar bg-dark align-items-center">
@@ -30,12 +30,13 @@
             </li>
             <!-- Záložka tvorcovia -->
             <li class="nav-item">
-                <a class="nav-link" href="?c=creator">Tvorcovia</a>
+                <a class="nav-link" href="?c=user">Tvorcovia</a>
             </li>
+            <!-- -->
         </ul>
-        <!-- záložky na konci -->
-        <ul class="nav justify-content-end ">
-            <!-- zobrazenie záložiek Pridanie filmu a Pridanie tvorcu, logout, ak som prihlásený -->
+        <!-- záložky v strede -->
+        <ul class="nav justify-content-center">
+            <!-- zobrazenie záložiek Pridanie filmu, tvorcu, žánru ak som prihlásený -->
             <?php if(\App\Auth::isLogged()) { ?>
                 <li class="nav-item">
                     <a class="nav-link" href="?c=movie&a=movieForm">Pridať film</a>
@@ -46,6 +47,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="?c=genre&a=genreForm">Pridať žáner</a>
                 </li>
+            <?php } ?>
+        </ul>
+        <!-- -->
+        <!-- záložky na konci -->
+        <ul class="nav justify-content-end ">
+            <!-- zobrazenie záložky logout, a svoj profil ak som prihlásený -->
+            <?php if(\App\Auth::isLogged()) { ?>
                 <li class="nav-item">
                     <a class="nav-link" href="?c=user"><?php echo \App\Auth::getName() ?></a>
                 </li>

@@ -18,10 +18,10 @@
                                 <?= $data['error'] ?>
                             </div>
                         <?php } ?>
-                        <!-- Login -->
+                        <!-- názov žánru -->
                         <div class="form-control mb-3">
                             <label for="genre" class="form-label"><strong>Názov žánru</strong></label>
-                            <input id="genre" class="form-control" name="genreName" type="text" required>
+                            <input id="genre" class="form-control" name="genreName" type="text" maxlength="30" required>
                         </div>
                         <!-- tlačítko -->
                         <div class="mb-3">

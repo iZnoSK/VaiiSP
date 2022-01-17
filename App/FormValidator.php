@@ -7,6 +7,22 @@ namespace App;
 //TODO heslo tiez len cisla a pismena (asi len na serveri)
 class FormValidator
 {
+    public static function inputHasTooManyChars($numberOfCharacters, $input) {
+        if(strlen($input) > $numberOfCharacters) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function emptyInput(array $inputs) {
+        foreach ($inputs as $input) {
+            if(empty($input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //TODO pozriet ako sa robi variabilny pocet premennych, poslat to a v cykle skontrolovat - univerzalne pre vsetky formulare?
     public static function emptyInputSignUp($login, $email, $password, $repeatedPassword) {
         if(empty($login) || empty($email) || empty($password) || empty($repeatedPassword)) {

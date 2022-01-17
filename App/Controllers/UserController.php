@@ -9,7 +9,7 @@ use App\FormValidator;
 use App\Models\Movie;
 use App\Models\MovieCreator;
 use App\Models\MovieGenre;
-use App\Models\Pouzivatel;
+use App\Models\User;
 
 class UserController extends AControllerRedirect
 {
@@ -21,7 +21,7 @@ class UserController extends AControllerRedirect
         if(!Auth::isLogged()) {
             $this->redirect('home');
         }
-        $user = Pouzivatel::getOne(Auth::getId());
+        $user = User::getOne(Auth::getId());
         $movies = [];
         foreach ($user->getRatings() as $rating) {
             $movies[] = Movie::getOne($rating->getId());
@@ -39,7 +39,7 @@ class UserController extends AControllerRedirect
         //TODO ked nemas ziadny rating ani review, tak to funguje - ked mas obe, tak to funguje
         //TODO keď nemáš žiadny rating alebo review, tak nie - OPRAVIT AJ VO VIEW
         $userId = $this->request()->getValue('id');
-        $user = Pouzivatel::getOne($userId);
+        $user = User::getOne($userId);
         $movies = [];
         foreach ($user->getRatings() as $rating) {
             $movies[] = Movie::getOne($rating->getId());
@@ -59,7 +59,7 @@ class UserController extends AControllerRedirect
         $userId = $this->request()->getValue('id');
         if ($userId > 0)
         {
-            $user = Pouzivatel::getOne($userId);
+            $user = User::getOne($userId);
             if($movieReview = $user->getReviews()[0]) {
                 $movieReview->delete();
             }
@@ -79,7 +79,7 @@ class UserController extends AControllerRedirect
             $this->redirect('home');
         }
         $userId = $this->request()->getValue('id');
-        $user = Pouzivatel::getOne($userId);
+        $user = User::getOne($userId);
         return $this->html(
             [
                 'error' => $this->request()->getValue('error'),
@@ -113,7 +113,7 @@ class UserController extends AControllerRedirect
                 $this->redirect('user', 'editUserForm', ['error' => 'Problém s obrázkom']);
                 exit;
             }
-            $user = Pouzivatel::getOne(Auth::getId());
+            $user = User::getOne(Auth::getId());
             $user->setImg($nameOfFile);
             $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);   //TODO asi presunut hashovanie do Auth?
             $user->setPassword($hashedPassword);

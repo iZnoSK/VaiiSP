@@ -7,7 +7,7 @@ const COMMON = "common";
 
 //TODO možno dorobiť admin prihlasovanie - viac práv - momentálne majú všetci použivatelia rovnaké práva
 //TODO rename to User
-class Pouzivatel extends \App\Core\Model
+class User extends \App\Core\Model
 {
 
     public function __construct(public int $id = 0, public ?string $u_login = null, public ?string $u_email = null,
