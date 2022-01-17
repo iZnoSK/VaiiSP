@@ -50,8 +50,8 @@
                     <!-- všetky recenzie -->
                     <?php $i = 0;
                     foreach ($data['user']->getReviews() as $review) { ?>
-                        <h6><strong><?php echo $data['movies'][$i]->getTitle() ?>
-                                (<?php echo $data['movies'][$i]->getRelease() ?>)</strong></h6>
+                        <h6><strong><?php echo $data['moviesReview'][$i]->getTitle() ?>
+                                (<?php echo $data['moviesReview'][$i]->getRelease() ?>)</strong></h6>
                         <p>
                             <?php echo $review->getText(); ?>
                         </p>
@@ -93,8 +93,8 @@
                             <?php echo $rating->getPercentage() ?>%
                         </td>
                         <td class="druhyStlpecUzivatel">
-                            <?php echo $data['movies'][$i]->getTitle() ?>
-                            (<?php echo $data['movies'][$i]->getRelease() ?>)
+                            <?php echo $data['moviesRating'][$i]->getTitle() ?>
+                            (<?php echo $data['moviesRating'][$i]->getRelease() ?>)
                         </td>
                     </tr>
                     <?php $i++;

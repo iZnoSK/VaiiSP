@@ -43,14 +43,21 @@ class UserController extends AControllerRedirect
     {
         $userId = $this->request()->getValue('id');
         $user = User::getOne($userId);
-        $movies = [];
+
+        $moviesRating = [];
         foreach ($user->getRatings() as $rating) {
-            $movies[] = Movie::getOne($rating->getId());
+            $moviesRating[] = Movie::getOne($rating->getId());
+        }
+
+        $moviesReview = [];
+        foreach ($user->getReviews() as $review) {
+            $moviesReview[] = Movie::getOne($review->getId());
         }
         return $this->html(
             [
                 'user' => $user,
-                'movies' => $movies
+                'moviesRating' => $moviesRating,
+                'moviesReview' => $moviesReview
             ]
         );
     }
