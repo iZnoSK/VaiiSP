@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-//TODO možno dorobiť admin prihlasovanie - viac práv - momentálne majú všetci použivatelia rovnaké práva
 class User extends \App\Core\Model
 {
 

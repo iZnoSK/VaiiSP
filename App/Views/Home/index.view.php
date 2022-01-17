@@ -5,8 +5,9 @@
         <!-- justify-content-center -> karty sú zarovnané na stred, flex-wrap -> ked sa dostanem na koniec, choď na ďalší riadok -->
         <div class="d-flex justify-content-center flex-wrap">
             <!-- KARTY -->
+            <?php /** @var \App\Models\Movie $movie */ ?>
             <?php foreach ($data['movies'] as $movie) { ?>
-            <div class="card bg-light">                                     <!-- TODO maybe text-center -->
+            <div class="card bg-light">
                 <!-- header karty - obrázok -->
                 <img src="public/files/movieImages/<?= $movie->getImg() ?>" class="card-img-top" alt="poster">
                 <!-- telo karty - text -->

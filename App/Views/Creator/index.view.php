@@ -8,7 +8,7 @@
                 <thead>
                 <tr>
                     <th colspan="2">
-                        <h5><strong>Herci</strong></h5>
+                        Herci
                     </th>
                 </tr>
                 </thead>
@@ -42,7 +42,7 @@
                 <thead>
                 <tr>
                     <th colspan="2">
-                        <h5><strong>Režiséri</strong></h5>
+                        Režiséri
                     </th>
                 </tr>
                 </thead>
@@ -76,7 +76,7 @@
                 <thead>
                 <tr>
                     <th colspan="2">
-                        <h5><strong>Scenáristi</strong></h5>
+                        Scenáristi
                     </th>
                 </tr>
                 </thead>
@@ -110,7 +110,7 @@
                 <thead>
                 <tr>
                     <th colspan="2">
-                        <h5><strong>Kameramani</strong></h5>
+                        Kameramani
                     </th>
                 </tr>
                 </thead>
@@ -144,7 +144,7 @@
                 <thead>
                 <tr>
                     <th colspan="2">
-                        <h5><strong>Skladatelia</strong></h5>
+                        Skladatelia
                     </th>
                 </tr>
                 </thead>

@@ -3,12 +3,9 @@
 namespace App\Controllers;
 
 use App\Auth;
-use App\Core\DB\Connection;
+use App\Core\Responses\ViewResponse;
 use App\DatabaseValidator;
 use App\FormValidator;
-use App\Core\Responses\Response;
-use App\Models\Creator;
-use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\MovieCreator;
 use App\Models\MovieGenre;
@@ -16,6 +13,10 @@ use App\Models\User;
 use App\Models\Rating;
 use App\Models\Review;
 
+/**
+ * Kontrolér reprezentujúci možnosti, aké možeme robiť s filmom
+ * @package App\Controllers
+ */
 class MovieController extends AControllerRedirect
 {
 
@@ -27,9 +28,14 @@ class MovieController extends AControllerRedirect
         $this->redirect('home');
     }
 
-    // v root.layout.view.php v navbare na tlačítku -> c=movie & a=movieForm
+    /** Pomocou metódy sa prejde na formulár pridania nového filmu
+     * Ak odoslanie formuláru skončí chybou, tá sa vypíše
+     * @return ViewResponse
+     * @throws \Exception
+     */
     public function movieForm()
     {
+        // v root.layout.view.php -> c=movie & a=movieForm
         if (!Auth::isLogged()) {
             $this->redirect('home');
         }
@@ -39,7 +45,6 @@ class MovieController extends AControllerRedirect
         $screenwriters = CreatorController::getAllScreenwriters();
         $cameramen = CreatorController::getAllCameramen();
         $composers = CreatorController::getAllComposers();
-        //TODO možno tu pridať id filmu, ak ide o úpravu a poslať ten film z db
         return $this->html(
             [
                 'error' => $this->request()->getValue('error'),
@@ -53,12 +58,16 @@ class MovieController extends AControllerRedirect
         );
     }
 
-    // v movieForm.view.php vo formulári -> c=movie & a=upload
+
+    /** vytvor nový film
+     * @throws \Exception
+     */
     public function upload()
     {
-        //TODO upratať! krajšie spraviť
-        //TODO URL check?
-        //v input posielame login a password
+        // v movieForm.view.php vo formulári -> c=movie & a=upload
+        if (!Auth::isLogged()) {
+            $this->redirect('home');
+        }
         $title = trim($this->request()->getValue('titleOfMovie'));
         $release = trim($this->request()->getValue('releaseOfMovie'));
         $length = trim($this->request()->getValue('lengthOfMovie'));
@@ -72,8 +81,7 @@ class MovieController extends AControllerRedirect
         $cameramanId = $this->request()->getValue('cameramanOfMovie');
         $composerId = $this->request()->getValue('composerOfMovie');
 
-        //TODO check, ci nie su prazdne selectboxy
-        if(FormValidator::emptyInputMovie($title, $release, $length, $origin, $description)) {
+        if(FormValidator::emptyInput([$title, $release, $length, $origin, $description, $actorIds, $directorId, $screenwriterId, $cameramanId, $composerId])) {
             $this->redirect('movie', 'movieForm', ['error' => 'Aspoň 1 z polí zostalo prázdne']);
         } else if(FormValidator::invalidYear($release)) {
             $this->redirect('movie', 'movieForm', ['error' => 'Neplatný rok vydania']);
@@ -91,7 +99,7 @@ class MovieController extends AControllerRedirect
                 $this->redirect('movie', 'movieForm', ['error' => 'Problém s obrázkom']);
                 exit;
             }
-            //TODO toto by mala byť asi transakcia
+            //vytvor nový film
             $newMovie = new Movie();
             $newMovie->setTitle($title);
             $newMovie->setRelease($release);
@@ -100,48 +108,24 @@ class MovieController extends AControllerRedirect
             $newMovie->setImg($nameOfFile);
             $newMovie->setDescription($description);
             $newMovie->save();
-
             $movie = DatabaseValidator::checkIfMovieExists($title, $release);
-
+            //vytvor film žánre
             foreach ($genreIds as $genreId) {
                 $movieGenre = new MovieGenre();
                 $movieGenre->setId($movie->getId());
                 $movieGenre->setGenreId($genreId);
                 $movieGenre->add();
             }
-
-            foreach ($actorIds as $actorId) {
-                $movieCreator = new MovieCreator();
-                $movieCreator->setId($movie->getId());
-                $movieCreator->setCreatorId($actorId);
-                $movieCreator->add();
-            }
-
-            //TODO asi metóda
-            $movieCreator = new MovieCreator();
-            $movieCreator->setId($movie->getId());
-            $movieCreator->setCreatorId($directorId);
-            $movieCreator->add();
-
-            $movieCreator = new MovieCreator();
-            $movieCreator->setId($movie->getId());
-            $movieCreator->setCreatorId($screenwriterId);
-            $movieCreator->add();
-
-            $movieCreator = new MovieCreator();
-            $movieCreator->setId($movie->getId());
-            $movieCreator->setCreatorId($cameramanId);
-            $movieCreator->add();
-
-            $movieCreator = new MovieCreator();
-            $movieCreator->setId($movie->getId());
-            $movieCreator->setCreatorId($composerId);
-            $movieCreator->add();
-
+            //vytvor film cast
+            $this->createMovieCast($movie, $actorIds, $directorId, $screenwriterId, $cameramanId, $composerId);
             $this->redirect('home');
         }
     }
 
+
+    /** zmaže film z DB
+     * @throws \Exception
+     */
     public function removeMovie() {
         if (!Auth::isLogged()) {
             $this->redirect('home');
@@ -164,13 +148,17 @@ class MovieController extends AControllerRedirect
             }
             $movie->delete();
         }
-        //presmerovat vystup na home
         $this->redirect('home');
     }
 
-    // v index.view.php -> c=movie & a=editMovieForm & id = $movie->getId()
+
+    /** formulár na úpravu filmu v DB
+     * @return ViewResponse
+     * @throws \Exception
+     */
     public function editMovieForm()
     {
+        // v index.view.php -> c=movie & a=editMovieForm & id = $movie->getId()
         if (!Auth::isLogged())
         {
             $this->redirect('home');
@@ -183,7 +171,6 @@ class MovieController extends AControllerRedirect
         $cameramen = CreatorController::getAllCameramen();
         $composers = CreatorController::getAllComposers();
 
-        //TODO dať takéto veci do Movie!!!
         $genresOfMovie = $movie->getGenres();
         $genreIds = [];
         foreach ($genresOfMovie as $genre) {
@@ -220,11 +207,13 @@ class MovieController extends AControllerRedirect
         );
     }
 
-    // v editMovie.view.php vo formulári -> c=home & a=edit
+
+    /** upraví film v DB
+     * @throws \Exception
+     */
     public function editMovie()
     {
-        //TODO upratať! krajšie spraviť
-        //TODO URL check?
+        // v editMovie.view.php vo formulári -> c=home & a=edit
         if (!Auth::isLogged()) {
             $this->redirect("home");
         }
@@ -243,13 +232,14 @@ class MovieController extends AControllerRedirect
         $cameramanId = $this->request()->getValue('cameramanOfMovie');
         $composerId = $this->request()->getValue('composerOfMovie');
 
-        if(FormValidator::emptyInputMovie($title, $release, $length, $origin, $description)) {
-            $this->redirect('movie', 'editMovieForm',['id' => $id ,'error' => 'Aspoň 1 z polí zostalo prázdne']);
+        if(FormValidator::emptyInput([$title, $release, $length, $origin, $description, $actorIds, $directorId, $screenwriterId, $cameramanId, $composerId])) {
+            $this->redirect('movie', 'movieForm', ['error' => 'Aspoň 1 z polí zostalo prázdne']);
         } else if(FormValidator::invalidYear($release)) {
             $this->redirect('movie', 'editMovieForm', ['id' => $id ,'error' => 'Neplatný rok vydania']);
         } else if(FormValidator::invalidLength($length)) {
             $this->redirect('movie', 'editMovieForm', ['id' => $id ,'error' => 'Neplatná dĺžka filmu']);
         } else {
+            //update film
             $movie = MOVIE::getOne($id);
             $movie->setTitle($title);
             $movie->setRelease($release);
@@ -257,7 +247,7 @@ class MovieController extends AControllerRedirect
             $movie->setOrigin($origin);
             $movie->setDescription($description);
             $movie->save();
-
+            //update žánrov
             $genres = $movie->getGenres();
             $genres[0]->delete();
             foreach ($genreIds as $genreId) {
@@ -266,42 +256,56 @@ class MovieController extends AControllerRedirect
                 $movieGenre->setGenreId($genreId);
                 $movieGenre->add();
             }
-
+            //update movie cast
             $movieCast = $movie->getMovieCast();
             $movieCast[0]->delete();
-
-            foreach ($actorIds as $actorId) {
-                $movieCreator = new MovieCreator();
-                $movieCreator->setId($movie->getId());
-                $movieCreator->setCreatorId($actorId);
-                $movieCreator->add();
-            }
-
-            //TODO asi metóda
-            $movieCreator = new MovieCreator();
-            $movieCreator->setId($movie->getId());
-            $movieCreator->setCreatorId($directorId);
-            $movieCreator->add();
-
-            $movieCreator = new MovieCreator();
-            $movieCreator->setId($movie->getId());
-            $movieCreator->setCreatorId($screenwriterId);
-            $movieCreator->add();
-
-            $movieCreator = new MovieCreator();
-            $movieCreator->setId($movie->getId());
-            $movieCreator->setCreatorId($cameramanId);
-            $movieCreator->add();
-
-            $movieCreator = new MovieCreator();
-            $movieCreator->setId($movie->getId());
-            $movieCreator->setCreatorId($composerId);
-            $movieCreator->add();
-
+            $this->createMovieCast($movie, $actorIds, $directorId, $screenwriterId, $cameramanId, $composerId);
             $this->redirect('home');
         }
     }
 
+    /** vytvorí pre film všetkých tvorcov
+     * @param $movie
+     * @param $actorIds
+     * @param $directorId
+     * @param $screenwriterId
+     * @param $cameramanId
+     * @param $composerId
+     * @throws \Exception
+     */
+    private function createMovieCast($movie, $actorIds, $directorId, $screenwriterId, $cameramanId, $composerId) {
+        foreach ($actorIds as $actorId) {
+            $movieCreator = new MovieCreator();
+            $movieCreator->setId($movie->getId());
+            $movieCreator->setCreatorId($actorId);
+            $movieCreator->add();
+        }
+
+        $movieCreator = new MovieCreator();
+        $movieCreator->setId($movie->getId());
+        $movieCreator->setCreatorId($directorId);
+        $movieCreator->add();
+
+        $movieCreator = new MovieCreator();
+        $movieCreator->setId($movie->getId());
+        $movieCreator->setCreatorId($screenwriterId);
+        $movieCreator->add();
+
+        $movieCreator = new MovieCreator();
+        $movieCreator->setId($movie->getId());
+        $movieCreator->setCreatorId($cameramanId);
+        $movieCreator->add();
+
+        $movieCreator = new MovieCreator();
+        $movieCreator->setId($movie->getId());
+        $movieCreator->setCreatorId($composerId);
+        $movieCreator->add();
+    }
+
+    /** vráti všetky hodnotenia filmu s daným id
+     * @return \App\Core\Responses\JsonResponse
+     * @throws \Exception
+     */
     public function getRatings() {
         $movieId = $this->request()->getValue('id');
         $movie = Movie::getOne($movieId);
@@ -309,6 +313,10 @@ class MovieController extends AControllerRedirect
         return $this->json($ratings);
     }
 
+    /** vráti všetky recenzie filmu s daným id
+     * @return \App\Core\Responses\JsonResponse
+     * @throws \Exception
+     */
     public function getReviews() {
         $movieId = $this->request()->getValue('id');
         $movie = Movie::getOne($movieId);
@@ -316,6 +324,10 @@ class MovieController extends AControllerRedirect
         return $this->json($reviews);
     }
 
+    /** vráti profil filmu s daným id
+     * @return ViewResponse
+     * @throws \Exception
+     */
     public function getProfile()
     {
         $movieId = $this->request()->getValue('id');
@@ -331,10 +343,6 @@ class MovieController extends AControllerRedirect
             $ratingUsers[] = User::getOne($rating->getUserId());
         }
 
-/*        $movieCast = [];
-        foreach ($movie->getMovieCast() as $cast) {
-            $movieCast[] = Creator::getOne($cast->getCreatorId());
-        }*/
         $director = $movie->getDirector();
         $screenwriter = $movie->getScreenwriter();
         $cameraman = $movie->getCameraman();
@@ -373,6 +381,10 @@ class MovieController extends AControllerRedirect
         );
     }
 
+    /** pridá recenziu filmu s daným id
+     * @return \App\Core\Responses\JsonResponse
+     * @throws \Exception
+     */
     public function addReview()
     {
         if (!Auth::isLogged()) {
@@ -382,7 +394,7 @@ class MovieController extends AControllerRedirect
         $userId = Auth::getId();
         $userLogin = Auth::getName();
         $text = trim($this->request()->getValue('reviewOfMovie'));
-        if(!FormValidator::emptyInputReview($text)) {                                     //mozno nejaku chybovu hlasku
+        if(!FormValidator::emptyInputReview($text)) {
             $review = new Review();
             $review->setId($movieId);
             $review->setUserId($userId);
@@ -394,6 +406,10 @@ class MovieController extends AControllerRedirect
         return $this->json("error");
     }
 
+    /** pridá hodnotenie filmu s daným id
+     * @return \App\Core\Responses\JsonResponse
+     * @throws \Exception
+     */
     public function addRating()
     {
         if (!Auth::isLogged()) {
@@ -403,14 +419,13 @@ class MovieController extends AControllerRedirect
         $userId = Auth::getId();
         $userLogin = Auth::getName();
         $percentage = trim($this->request()->getValue('ratingOfMovie'));
-        if(!FormValidator::invalidRating($percentage)) {                                     //mozno nejaku chybovu hlasku
+        if(!FormValidator::invalidRating($percentage)) {
             $rating = new Rating();
             $rating->setId($movieId);
             $rating->setUserId($userId);
             $rating->setUserLogin($userLogin);
             $rating->setPercentage($percentage);
             $rating->add();
-            //TODO prepocitaj final rating, aby sa updateol
             return $this->json("success");
         }
         return $this->json("error");

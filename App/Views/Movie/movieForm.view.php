@@ -47,6 +47,7 @@
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
                             <label for="director" class="form-label">Režisér</label>
                             <select id="director" class="form-select" name="directorOfMovie" required>
+                                <option value="">Vyber režiséra</option>
                                 <?php foreach ($data['directors'] as $director) { ?>
                                     <option value="<?= $director->getId() ?>"><?= $director->getFullName() ?></option>
                                 <?php } ?>
@@ -56,6 +57,7 @@
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
                             <label for="screenwriter" class="form-label">Scenárista</label>
                             <select id="screenwriter" class="form-select" name="screenwriterOfMovie" required>
+                                <option value="">Vyber scenáristu</option>
                                 <?php foreach ($data['screenwriters'] as $screenwriter) { ?>
                                     <option value="<?= $screenwriter->getId() ?>"><?= $screenwriter->getFullName() ?></option>
                                 <?php } ?>
@@ -65,6 +67,7 @@
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
                             <label for="cameraman" class="form-label">Kameraman</label>
                             <select id="cameraman" class="form-select" name="cameramanOfMovie" required>
+                                <option value="">Vyber kameramana</option>
                                 <?php foreach ($data['cameramen'] as $cameraman) { ?>
                                     <option value="<?= $cameraman->getId() ?>"><?= $cameraman->getFullName() ?></option>
                                 <?php } ?>
@@ -74,6 +77,7 @@
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
                             <label for="composer" class="form-label">Skladateľ</label>
                             <select id="composer" class="form-select" name="composerOfMovie" required>
+                                <option value="">Vyber skladateľa</option>
                                 <?php foreach ($data['composers'] as $composer) { ?>
                                     <option value="<?= $composer->getId() ?>"><?= $composer->getFullName() ?></option>
                                 <?php } ?>

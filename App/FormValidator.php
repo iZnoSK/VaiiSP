@@ -2,9 +2,10 @@
 
 namespace App;
 
-//TODO ci sa zadal dostatocny pocet znakov v hesle (aj na klientovi, aj na serveri)?
-//TODO login moze byt max 20 znakov, heslo aspon 8 (aj na klientovi, aj na serveri)
-//TODO heslo tiez len cisla a pismena (asi len na serveri)
+/**
+ * Trieda ponúka pomocné služby pri validácii vstupov
+ * @package App
+ */
 class FormValidator
 {
     public static function invalidTypeOfLogin($login) {

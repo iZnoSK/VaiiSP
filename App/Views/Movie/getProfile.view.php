@@ -109,7 +109,6 @@
                     <!--  -->
                 </div>
                 <?php } ?>
-                </form>
                 <!-- ostatne hodnotenia -->
                 <div class="col-12 ostatneHodnotenia bg-light">
                     <!-- Tabuľka -->

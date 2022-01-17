@@ -19,7 +19,7 @@ class Auth
     {
         $user = DatabaseValidator::checkIfUserExists($login);
         if($user) {
-            if ($login == $user->getLogin() && password_verify($password, $user->getPassword()))
+            if ($login == $user->getLogin() && self::verifyPassword($password, $user->getPassword()))
             {
                 $_SESSION['name'] = $login;
                 $_SESSION['id'] = $user->getId();
@@ -57,8 +57,16 @@ class Auth
         return (Auth::isLogged() ? $_SESSION['id'] : "");
     }
 
+    /** Metóda vráti zahashované heslo
+     * @param $password
+     * @return string
+     */
     public static function hashPassword($password) {
-        return password_hash($password, PASSWORD_DEFAULT);;
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    public static function verifyPassword($password, $hashedPassword) {
+        return password_verify($password, $hashedPassword);
     }
 
     /**

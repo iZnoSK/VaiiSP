@@ -11,6 +11,9 @@ use App\Models\Movie;
  */
 class HomeController extends AControllerRedirect
 {
+    /** Pomocou metódy presmerujeme stránku na hlavnú stránku zobrazujúcu všetky filmy
+     * @inheritDoc
+     */
     public function index()
     {
         //$movies je pole všetkých záznamov z tabuľky movies

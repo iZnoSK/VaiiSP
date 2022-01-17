@@ -38,6 +38,7 @@
                         <div class="col-12 col-md-6 mb-3">
                             <label for="role" class="form-label">Povolanie</label>
                             <select id="role" class="form-select" name="roleOfCreator" required>
+                                <option value="">Vyber povolanie</option>
                                 <option value="Herec">Herec</option>
                                 <option value="Režisér">Režisér</option>
                                 <option value="Scenárista">Scenárista</option>

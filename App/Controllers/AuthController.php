@@ -40,7 +40,7 @@ class AuthController extends AControllerRedirect
     }
 
     /**
-     * Metóda slúži na skontrolovanie vstupov vo formulári pre prihlásenie
+     * Metóda slúži na skontrolovanie vstupov vo formulári pre prihlásenie a na následné prihlásenie
      */
     public function login()
     {

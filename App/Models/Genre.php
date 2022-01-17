@@ -4,7 +4,7 @@ namespace App\Models;
 
 /**
  * Trieda reprezentuje 1 konkrétny žáner filmu
- * @package App\Core
+ * @package App\Models
  */
 class Genre extends \App\Core\Model
 {

@@ -4,7 +4,7 @@ namespace App\Models;
 
 /**
  * Trieda reprezentuje 1 konkrétneho tvorcu (herca, režiséra, scenáristu, kameramana, skladateľa)
- * @package App\Core
+ * @package App\Models
  */
 class Creator extends \App\Core\Model
 {

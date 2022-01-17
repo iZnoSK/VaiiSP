@@ -7,29 +7,34 @@
             <div class="row">
                 <!-- Poster užívateľa -->
                 <div class="col-2 pt-1 pb-1 bg-light obrazokUzivatela">
-                    <img class="img-thumbnail" src="public/files/userImages/<?= $data['user']->getImg() ?>" alt="Poster">
+                    <img class="img-thumbnail" src="public/files/userImages/<?= $data['user']->getImg() ?>"
+                         alt="Poster">
                 </div>
                 <!-- atribúty užívateľa -->
                 <div class="col-10 pt-2 pb-1 bg-light atributyUzivatela">
                     <!-- Login -->
-                    <h4><strong><?= $data['user']->getLogin() ?></strong></h4>
-                    <!-- tlačítka -->
-                    <!-- zobrazenie tlačidiel na úpravu, ak som prihlásený -->
-                    <?php if((\App\Auth::isLogged()) && (\App\Auth::getId() == $data['user']->getId())) { ?>
-                        <!-- tlačidlo na vymazanie filmu -->
-                        <a href="?c=user&a=removeUser&id=<?= $data['user']->getId() ?>" class="btn btn-danger">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                        <!-- tlačidlo na úpravu filmu -->
-                        <a href="?c=user&a=editUserForm&id=<?= $data['user']->getId() ?>" class="btn btn-primary">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                    <?php } ?>
+                    <div class="justify-content-end text-start">
+                        <h4><strong><?= $data['user']->getLogin() ?></strong></h4>
+                    </div>
                     <!-- E-mail -->
                     <hr>
                     <p>
                         <strong>E-mail: </strong><?= $data['user']->getEmail() ?>
                     </p>
+                    <!-- tlačítka -->
+                    <!-- zobrazenie tlačidiel na úpravu, ak som prihlásený -->
+                    <?php if ((\App\Auth::isLogged()) && (\App\Auth::getId() == $data['user']->getId())) { ?>
+                        <!-- tlačidlo na vymazanie filmu -->
+                        <div class="text-end">
+                            <a href="?c=user&a=removeUser&id=<?= $data['user']->getId() ?>" class="btn btn-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                            <!-- tlačidlo na úpravu filmu -->
+                            <a href="?c=user&a=editUserForm&id=<?= $data['user']->getId() ?>" class="btn btn-primary">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </div>
+                    <?php } ?>
                 </div>
                 <!-- -->
             </div>
@@ -43,13 +48,16 @@
                     </header>
                     <hr>
                     <!-- všetky recenzie -->
-                    <?php $i = 0; foreach ($data['user']->getReviews() as $review) { ?>
-                    <h6><strong><?php echo $data['movies'][$i]->getTitle() ?> (<?php echo $data['movies'][$i]->getRelease() ?>)</strong></h6>
-                    <p>
-                        <?php echo $review->getText(); ?>
-                    </p>
-                    <hr>
-                    <?php $i++;} ?>
+                    <?php $i = 0;
+                    foreach ($data['user']->getReviews() as $review) { ?>
+                        <h6><strong><?php echo $data['movies'][$i]->getTitle() ?>
+                                (<?php echo $data['movies'][$i]->getRelease() ?>)</strong></h6>
+                        <p>
+                            <?php echo $review->getText(); ?>
+                        </p>
+                        <hr>
+                        <?php $i++;
+                    } ?>
                     <!-- -->
                 </div>
                 <!-- -->
@@ -78,16 +86,19 @@
                 </thead>
                 <!-- Telo tabuľky -->
                 <tbody>
-                <?php $i = 0; foreach ($data['user']->getRatings() as $rating) { ?>
-                <tr>
-                    <td class="prvyStlpecUzivatel">
-                        <?php echo $rating->getPercentage() ?>%
-                    </td>
-                    <td class="druhyStlpecUzivatel">
-                        <?php echo $data['movies'][$i]->getTitle() ?> (<?php echo $data['movies'][$i]->getRelease() ?>)
-                    </td>
-                </tr>
-                <?php $i++; } ?>
+                <?php $i = 0;
+                foreach ($data['user']->getRatings() as $rating) { ?>
+                    <tr>
+                        <td class="prvyStlpecUzivatel">
+                            <?php echo $rating->getPercentage() ?>%
+                        </td>
+                        <td class="druhyStlpecUzivatel">
+                            <?php echo $data['movies'][$i]->getTitle() ?>
+                            (<?php echo $data['movies'][$i]->getRelease() ?>)
+                        </td>
+                    </tr>
+                    <?php $i++;
+                } ?>
                 </tbody>
             </table>
             <!-- -->
