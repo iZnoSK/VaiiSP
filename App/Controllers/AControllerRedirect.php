@@ -2,11 +2,14 @@
 
 namespace App\Controllers;
 
+/**
+ * Trieda reprezentuje kontroler, pomocou ktorého sa dá jednoducho presmerovať na inú URL adresu
+ * @package App\Controllers
+ */
 abstract class AControllerRedirect extends \App\Core\AControllerBase
 {
     protected function redirect($controller, $action = "", $params = [])
     {
-        //príklad -> localhost/Semestralka/?c=home&a=addLike&postid=$post->getId()
         //?c=home
         $location = "Location: ?c=$controller";
         //&a=addLike
@@ -17,7 +20,7 @@ abstract class AControllerRedirect extends \App\Core\AControllerBase
         foreach ($params as $name => $value) {
             $location .= "&$name=" . urlencode($value);
         }
-        //presmerovanie na inú URL adresu
+        //presmerovanie na danú URL adresu
         header($location);
     }
 }

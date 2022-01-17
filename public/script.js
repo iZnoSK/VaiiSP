@@ -115,12 +115,16 @@ class Validation {
             this.onError(login,"Používateľské meno nemôže byť prázdne");
         } else if(!this.isValidLogin(loginValue)) {
             this.onError(login,"Používateľské meno nie je v správnom tvare");
+        } else if (loginValue.length < 3) {
+            this.onError(login,"Používateľské meno musí mať aspoň 3 znaky");
         } else {
             this.onSuccess(login);
         }
         //check password
         if(passwordValue === "") {
             this.onError(pwd,"Heslo nemôže byť prázdne");
+        } else if(passwordValue.length < 8) {
+            this.onError(pwd, "Heslo musí mať aspoň 8 znakov")
         } else {
             this.onSuccess(pwd);
         }

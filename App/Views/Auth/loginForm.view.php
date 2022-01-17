@@ -21,13 +21,13 @@
                         <!-- Login -->
                         <div class="form-control mb-3">
                             <label for="login" class="form-label"><strong>Používateľské meno</strong></label>
-                            <input id="login" class="form-control" name="loginOfUser" type="text" required>
+                            <input id="login" class="form-control" name="loginOfUser" type="text" minlength="3" maxlength="20" required>
                             <small class="varovanie"></small>
                         </div>
                         <!-- Heslo -->
                         <div class="form-control mb-3">
                             <label for="pwd" class="form-label"><strong>Heslo</strong></label>
-                            <input id="pwd" class="form-control" name="passwordOfUser" type="password" required>
+                            <input id="pwd" class="form-control" name="passwordOfUser" type="password" minlength="8" required>
                             <small class="varovanie"></small>
                         </div>
                         <!-- tlačítko -->

@@ -30,7 +30,7 @@
             </li>
             <!-- Záložka tvorcovia -->
             <li class="nav-item">
-                <a class="nav-link" href="?c=user">Tvorcovia</a>
+                <a class="nav-link" href="?c=creator">Tvorcovia</a>
             </li>
             <!-- -->
         </ul>

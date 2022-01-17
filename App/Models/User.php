@@ -2,24 +2,19 @@
 
 namespace App\Models;
 
-const ADMIN = "admin";
-const COMMON = "common";
-
 //TODO možno dorobiť admin prihlasovanie - viac práv - momentálne majú všetci použivatelia rovnaké práva
-//TODO rename to User
 class User extends \App\Core\Model
 {
 
     public function __construct(public int $id = 0, public ?string $u_login = null, public ?string $u_email = null,
-                                public ?string $u_img = null, public ?string $u_password = null,
-                                public ?string $u_role = COMMON)
+                                public ?string $u_img = null, public ?string $u_password = null)
     {
 
     }
 
     static public function setDbColumns()
     {
-        return ['id', 'u_login', 'u_email','u_img', 'u_password', 'u_role'];
+        return ['id', 'u_login', 'u_email','u_img', 'u_password'];
     }
 
     static public function setTableName()
@@ -89,22 +84,6 @@ class User extends \App\Core\Model
     public function setPassword(?string $u_password): void
     {
         $this->u_password = $u_password;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getRole(): ?string
-    {
-        return $this->u_role;
-    }
-
-    /**
-     * @param string|null $u_role
-     */
-    public function setRole(?string $u_role): void
-    {
-        $this->u_role = $u_role;
     }
 
     /**

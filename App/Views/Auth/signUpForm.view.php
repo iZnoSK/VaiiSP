@@ -21,7 +21,7 @@
                         <!-- Login -->
                         <div class="form-control mb-3">
                             <label for="login" class="form-label"><strong>Používateľské meno</strong></label>
-                            <input id="login" class="form-control" name="loginOfUser" type="text" required>
+                            <input id="login" class="form-control" name="loginOfUser" type="text" minlength="3" maxlength="20" required>
                         </div>
                         <!-- Email -->
                         <div class="form-control mb-3">
@@ -36,12 +36,12 @@
                         <!-- Heslo -->
                         <div class="form-control mb-3">
                             <label for="pwd" class="form-label"><strong>Heslo</strong></label>
-                            <input id="pwd" class="form-control" name="passwordOfUser" type="password" required>
+                            <input id="pwd" class="form-control" name="passwordOfUser" type="password" minlength="8" required>
                         </div>
                         <!-- Potvrdzovacie heslo -->
                         <div class="form-control mb-3">
                             <label for="repeatedPwd" class="form-label"><b>Potvrdzovacie heslo</b></label>
-                            <input id="repeatedPwd" class="form-control" name="repeatedPasswordOfUser" type="password" required>
+                            <input id="repeatedPwd" class="form-control" name="repeatedPasswordOfUser" type="password" minlength="8" required>
                         </div>
                         <!-- tlačítko -->
                         <div class="mb-3">

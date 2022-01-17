@@ -145,11 +145,14 @@ class Movie extends \App\Core\Model
     {
         $finalRating = 0;
         $counter = 0;
-        foreach ($this->getRatings() as $rating) {
-            $counter++;
-            $finalRating = ($finalRating + $rating->getPercentage());
+        $ratings = $this->getRatings();
+        if($ratings) {
+            foreach ($ratings as $rating) {
+                $counter++;
+                $finalRating = ($finalRating + $rating->getPercentage());
+            }
+            $finalRating /= $counter;
         }
-        $finalRating /= $counter;
         return (int)$finalRating;
     }
 

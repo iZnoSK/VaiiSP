@@ -7,7 +7,30 @@ namespace App;
 //TODO heslo tiez len cisla a pismena (asi len na serveri)
 class FormValidator
 {
-    public static function inputHasTooManyChars($numberOfCharacters, $input) {
+    public static function invalidTypeOfLogin($login) {
+        if(!preg_match("/^[a-zA-Z0-9]*$/", $login)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function invalidTypeOfWord($input)
+    {
+        if(!preg_match("/^[a-zA-ZáéíýúäôľščťžňďěřůÁÉÍÝÚĽŠČŤŽŇĎĚŘŮ\s]*$/i", $input)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function notEnoughChars($numberOfCharacters, $input) {
+        if(strlen($input) < $numberOfCharacters) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function tooManyChars($numberOfCharacters, $input) {
         if(strlen($input) > $numberOfCharacters) {
             return true;
         }
@@ -81,15 +104,6 @@ class FormValidator
             return true;
         }
         return false;
-    }
-
-    //TODO skontrolovat ako sa robia tie regex veci?
-    public static function invalidLogin($login) {
-        if(!preg_match("/^[a-zA-Z0-9]*$/", $login)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public static function invalidEmail($email) {

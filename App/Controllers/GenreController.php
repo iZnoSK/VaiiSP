@@ -24,7 +24,7 @@ class GenreController extends AControllerRedirect
 
 
     /**
-     * Metóda dovolí prihlásenej osobe prejsť na formulár pridanie žánru
+     * Metóda dovolí prihlásenej osobe prejsť na formulár pridania žánru
      * @return ViewResponse
      */
     public function genreForm()
@@ -54,8 +54,10 @@ class GenreController extends AControllerRedirect
         $genreName = trim($this->request()->getValue('genreName'));
         if(FormValidator::emptyInput([$genreName])) {
             $this->redirect('genre', 'genreForm', ['error' => 'Aspoň 1 z polí zostalo prázdne']);
-        } else if(FormValidator::inputHasTooManyChars(30, $genreName)) {
+        } else if(FormValidator::tooManyChars(30, $genreName)) {
             $this->redirect('genre', 'genreForm', ['error' => 'Názov žánru je príliš dlhý']);
+        } else if(FormValidator::invalidTypeOfWord($genreName)) {
+            $this->redirect('genre', 'genreForm', ['error' => 'Názov žánru nebolo slovo']);
         } else if(DatabaseValidator::checkIfGenreExists($genreName)) {
             $this->redirect('genre', 'genreForm', ['error' => 'Žáner sa už nachádza v databáze']);
         } else {
