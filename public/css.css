@@ -82,11 +82,11 @@ h5 {
 /* formuláre */
 
 .form-control.success input{
-    border: 0.5rem solid green;
+    border: 0.1rem solid green;
 }
 
 .form-control.error input {
-    border: 0.5rem solid red;
+    border: 0.1rem solid red;
 }
 
 .varovanie {

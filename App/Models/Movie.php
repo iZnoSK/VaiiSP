@@ -147,8 +147,9 @@ class Movie extends \App\Core\Model
         $counter = 0;
         foreach ($this->getRatings() as $rating) {
             $counter++;
-            $finalRating = (($finalRating + $rating->getPercentage()) / $counter);
+            $finalRating = ($finalRating + $rating->getPercentage());
         }
+        $finalRating /= $counter;
         return (int)$finalRating;
     }
 
