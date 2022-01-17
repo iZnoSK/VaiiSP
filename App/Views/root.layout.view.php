@@ -19,9 +19,8 @@
 
 <body>
 <!-- hlavný navbar -->
-<!-- TODO responzívne schovať -->
 <nav class="navbar bg-dark align-items-center">
-    <div class="container-md">
+    <div class="container-lg">
         <!-- záložky na začiatku -->
         <ul class="nav justify-content-start">
             <!-- Záložka filmy -->
@@ -51,7 +50,7 @@
         </ul>
         <!-- -->
         <!-- záložky na konci -->
-        <ul class="nav justify-content-end ">
+        <ul class="nav justify-content-end">
             <!-- zobrazenie záložky logout, a svoj profil ak som prihlásený -->
             <?php if(\App\Auth::isLogged()) { ?>
                 <li class="nav-item">
