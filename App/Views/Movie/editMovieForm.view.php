@@ -1,3 +1,7 @@
+<?php
+$title = "Úprava filmu | ";
+?>
+
 <?php /**@var Array $data */ ?>
 <div class="container-md">
     <div class="row">

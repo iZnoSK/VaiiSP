@@ -1,3 +1,7 @@
+<?php
+$title = "Pridanie tvorcu | ";
+?>
+
 <?php /**@var Array $data */ ?>
 <div class="container">
     <div class="row">
@@ -32,7 +36,7 @@
                         <!-- obrázok -->
                         <div class="col-12 col-md-6 mb-3">
                             <label for="formFile" class="form-label">Plagát</label>
-                            <input id="formFile" class="form-control" name="fileOfCreator" type="file" required>
+                            <input id="formFile" class="form-control" name="fileOfCreator" type="file">
                         </div>
                         <!-- rola -->
                         <div class="col-12 col-md-6 mb-3">

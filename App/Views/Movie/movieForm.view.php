@@ -1,3 +1,7 @@
+<?php
+$title = "Pridanie filmu | ";
+?>
+
 <?php /**@var Array $data */ ?>
 <div class="container-md">
     <div class="row">
@@ -36,7 +40,7 @@
                         <!-- obrázok -->
                         <div class="col-12 col-lg-6 mb-3">
                             <label for="formFile" class="form-label">Plagát</label>
-                            <input id="formFile" class="form-control" name="fileOfMovie" type="file" required>
+                            <input id="formFile" class="form-control" name="fileOfMovie" type="file">
                         </div>
                         <!-- Krajina pôvodu -->
                         <div class="col-12 col-lg-6 mb-3">

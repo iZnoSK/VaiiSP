@@ -1,3 +1,7 @@
+<?php
+$title = "Pridanie žánru | ";
+?>
+
 <?php /**@var Array $data */ ?>
 <div class="container">
     <div class="row">

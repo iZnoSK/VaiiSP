@@ -90,10 +90,17 @@ class MovieController extends AControllerRedirect
         } else if(DatabaseValidator::checkIfMovieExists($title, $release)) {
             $this->redirect('movie', 'movieForm', ['error' => 'Film sa už v databáze nachádza']);
         } else {
-            if (isset($_FILES['fileOfMovie']) && FormValidator::isImage($_FILES['fileOfMovie']['tmp_name'])) {
+            if (isset($_FILES['fileOfMovie'])) {
                 if ($_FILES["fileOfMovie"]["error"] == UPLOAD_ERR_OK) {
-                    $nameOfFile = date('Y-m-d-H-i-s_') . basename($_FILES['fileOfMovie']['name']);
-                    move_uploaded_file($_FILES['fileOfMovie']['tmp_name'], "public/files/movieImages/" . "$nameOfFile");
+                    if(FormValidator::isImage($_FILES['fileOfMovie']['tmp_name'])) {
+                        $nameOfFile = date('Y-m-d-H-i-s_') . basename($_FILES['fileOfMovie']['name']);
+                        move_uploaded_file($_FILES['fileOfMovie']['tmp_name'], "public/files/movieImages/" . "$nameOfFile");
+                    } else {
+                        $this->redirect('movie', 'movieForm', ['error' => 'Problém s obrázkom']);
+                        exit;
+                    }
+                } else {
+                    $nameOfFile = "blank-poster.png";
                 }
             } else {
                 $this->redirect('movie', 'movieForm', ['error' => 'Problém s obrázkom']);

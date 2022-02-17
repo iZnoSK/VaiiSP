@@ -121,13 +121,20 @@ class AuthController extends AControllerRedirect
         } else if (DatabaseValidator::checkIfEmailExists($email)) {
             $this->redirect('auth', 'signUpForm', ['error' => 'E-mail je už zabraný']);
         } else {
-            if (isset($_FILES['fileOfUser']) && FormValidator::isImage($_FILES['fileOfUser']['tmp_name'])) {
+            if (isset($_FILES['fileOfUser'])) {
                 if ($_FILES["fileOfUser"]["error"] == UPLOAD_ERR_OK) {
-                    $nameOfFile = date('Y-m-d-H-i-s_') . basename($_FILES['fileOfUser']['name']);
-                    move_uploaded_file($_FILES['fileOfUser']['tmp_name'], "public/files/userImages/" . "$nameOfFile");
+                    if(FormValidator::isImage($_FILES['fileOfUser']['tmp_name'])) {
+                        $nameOfFile = date('Y-m-d-H-i-s_') . basename($_FILES['fileOfUser']['name']);
+                        move_uploaded_file($_FILES['fileOfUser']['tmp_name'], "public/files/userImages/" . "$nameOfFile");
+                    } else {
+                        $this->redirect('auth', 'signUpUserForm', ['error' => 'Problém s obrázkom']);
+                        exit;
+                    }
+                } else {
+                    $nameOfFile = "2022-01-17-22-03-57_user.jpg";
                 }
             } else {
-                $this->redirect('auth', 'signUpForm', ['error' => 'Problém s obrázkom']);
+                $this->redirect('auth', 'signUpUserForm', ['error' => 'Problém s obrázkom']);
                 exit;
             }
             $newUser = new User();

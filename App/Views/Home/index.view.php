@@ -1,3 +1,7 @@
+<?php
+$title = "Domov | ";
+?>
+
 <?php /** @var Array $data */ ?>
 <div class="container-md">
     <div class="row">

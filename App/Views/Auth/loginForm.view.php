@@ -1,3 +1,7 @@
+<?php
+$title = "Prihlásenie | ";
+?>
+
 <?php /**@var Array $data */ ?>
 <div class="container">
     <div class="row">

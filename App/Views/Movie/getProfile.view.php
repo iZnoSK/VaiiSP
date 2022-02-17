@@ -1,3 +1,8 @@
+<?php /**@var Array $data */ ?>
+<?php
+$title = $data['movie']->getTitle()." (". $data['movie']->getRelease() .") | ";
+?>
+
 <?php /** @var Array $data */ ?>
 <div class="container-xl">
     <div class="row">

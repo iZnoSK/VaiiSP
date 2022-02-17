@@ -133,12 +133,19 @@ class UserController extends AControllerRedirect
         if(!Auth::verifyPassword($oldPassword, $user->getPassword())) {
             $this->redirect('user', 'editUserForm', ['error' => 'Zadali ste nesprávne staré heslo', 'id' => Auth::getId()]);
         } else if(FormValidator::notMatchingPasswords($newPassword, $repeatedPassword)) {
-            $this->redirect('user', 'editUserForm', ['error' => 'Heslá sa nezhodujú']);
+            $this->redirect('user', 'editUserForm', ['error' => 'Heslá sa nezhodujú', 'id' => Auth::getId()]);
         } else {
-            if (isset($_FILES['fileOfUser']) && FormValidator::isImage($_FILES['fileOfUser']['tmp_name'])) {
+            if (isset($_FILES['fileOfUser'])) {
                 if ($_FILES["fileOfUser"]["error"] == UPLOAD_ERR_OK) {
-                    $nameOfFile = date('Y-m-d-H-i-s_') . basename($_FILES['fileOfUser']['name']);
-                    move_uploaded_file($_FILES['fileOfUser']['tmp_name'], "public/files/userImages/" . "$nameOfFile");
+                    if(FormValidator::isImage($_FILES['fileOfUser']['tmp_name'])) {
+                        $nameOfFile = date('Y-m-d-H-i-s_') . basename($_FILES['fileOfUser']['name']);
+                        move_uploaded_file($_FILES['fileOfUser']['tmp_name'], "public/files/userImages/" . "$nameOfFile");
+                    } else {
+                        $this->redirect('user', 'editUserForm', ['error' => 'Problém s obrázkom']);
+                        exit;
+                    }
+                } else {
+                    $nameOfFile = "2022-01-17-22-03-57_user.jpg";
                 }
             } else {
                 $this->redirect('user', 'editUserForm', ['error' => 'Problém s obrázkom']);

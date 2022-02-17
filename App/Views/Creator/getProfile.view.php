@@ -1,4 +1,9 @@
 <?php /**@var Array $data */ ?>
+<?php
+$title = $data['creator']->getName()." ".$data['creator']->getSurname()." | ";
+?>
+
+<?php /**@var Array $data */ ?>
 <div class="container-lg">
     <div class="row">
         <!-- Pravá strana -->

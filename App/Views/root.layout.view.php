@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-    <title>Filmová databáza</title>
+    <title><?php echo $title ."Filmová Databáza" ?></title>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="public/files/common/favicon.png">
     <!-- viewport pre responzívny dizajn -->

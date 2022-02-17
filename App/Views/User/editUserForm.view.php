@@ -1,3 +1,7 @@
+<?php
+$title = "Úprava užívateľa | ";
+?>
+
 <?php /**@var Array $data */ ?>
 <div class="container">
     <div class="row">
@@ -21,7 +25,7 @@
                         <!-- obrázok -->
                         <div class="form-control mb-3">
                             <label for="formFile" class="form-label"><strong>Obrázok</strong></label>
-                            <input id="formFile" class="form-control" name="fileOfUser" type="file" required>
+                            <input id="formFile" class="form-control" name="fileOfUser" type="file">
                         </div>
                         <!-- Heslo -->
                         <div class="form-control mb-3">

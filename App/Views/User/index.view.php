@@ -1,4 +1,9 @@
 <?php /**@var Array $data */ ?>
+<?php
+$title = $data['user']->getLogin()." | ";
+?>
+
+<?php /**@var Array $data */ ?>
 <div class="container-lg">
     <div class="row">
         <!-- Pravá strana -->

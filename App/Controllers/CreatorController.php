@@ -82,10 +82,17 @@ class CreatorController extends AControllerRedirect
         } else if(DatabaseValidator::checkIfCreatorExists($name, $surname, $dateOfBirth)) {
             $this->redirect('creator', 'creatorForm', ['error' => 'Tvorca sa už nachádza v databáze']);
         } else {
-            if (isset($_FILES['fileOfCreator']) && FormValidator::isImage($_FILES['fileOfCreator']['tmp_name'])) {
+            if (isset($_FILES['fileOfCreator'])) {
                 if ($_FILES["fileOfCreator"]["error"] == UPLOAD_ERR_OK) {
-                    $nameOfFile = date('Y-m-d-H-i-s_') . basename($_FILES['fileOfCreator']['name']);
-                    move_uploaded_file($_FILES['fileOfCreator']['tmp_name'], "public/files/creatorImages/" . "$nameOfFile");
+                    if(FormValidator::isImage($_FILES['fileOfCreator']['tmp_name'])) {
+                        $nameOfFile = date('Y-m-d-H-i-s_') . basename($_FILES['fileOfCreator']['name']);
+                        move_uploaded_file($_FILES['fileOfCreator']['tmp_name'], "public/files/creatorImages/" . "$nameOfFile");
+                    } else {
+                        $this->redirect('creator', 'creatorForm', ['error' => 'Problém s obrázkom']);
+                        exit;
+                    }
+                } else {
+                    $nameOfFile = "2022-01-17-22-03-57_user.jpg";
                 }
             } else {
                 $this->redirect('creator', 'creatorForm', ['error' => 'Problém s obrázkom']);

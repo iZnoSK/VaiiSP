@@ -1,3 +1,7 @@
+<?php
+$title = "Tvorcovia | ";
+?>
+
 <?php /** @var Array $data */ ?>
 <div class="container-fluid">
     <div class="row">
